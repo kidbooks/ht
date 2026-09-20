@@ -334,7 +334,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
    is why no consent banner is needed anywhere on this site. The values
    are never transmitted from this page either; the record that matters
    is the one Stripe captures at checkout. */
-.cta-gate{flex:1 1 100%;order:3;border-top:1px solid rgba(239,230,211,0.22);padding-top:1.4rem;}
+.cta-gate{flex:1 1 100%;order:3;min-width:0;border-top:1px solid rgba(239,230,211,0.22);padding-top:1.4rem;}
 .cta-gate p{max-width:none;}
 /* .cta-gate-field is display:flex, which would otherwise beat the
    hidden attribute; conditional fields need this to actually hide. */
@@ -343,7 +343,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 .cta-gate-row{display:flex;flex-wrap:wrap;gap:.9rem 1.4rem;margin-bottom:1.1rem;}
 .cta-gate-field{flex:1 1 15rem;min-width:0;display:flex;flex-direction:column;gap:.32rem;}
 .cta-gate-field label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:rgba(239,230,211,0.72);}
-.cta-gate-field select{font:inherit;font-size:.9rem;padding:.5rem .6rem;border:1px solid rgba(239,230,211,0.35);border-radius:var(--radius);background:rgba(239,230,211,0.06);color:var(--parchment);}
+.cta-gate-field select{width:100%;min-width:0;font:inherit;font-size:.9rem;padding:.5rem .6rem;border:1px solid rgba(239,230,211,0.35);border-radius:var(--radius);background:rgba(239,230,211,0.06);color:var(--parchment);}
 /* Windows and Android draw the open dropdown list in the OS palette, so
    parchment-on-transparent options come out unreadable there. Forcing a
    dark-on-white option colour fixes the open list without affecting the
@@ -557,7 +557,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 				<h2>About</h2>
 				<p>I'm Bany Jaya — independent researcher, and author of <i>Nicky's Secret: A Christmas Story</i>, a children's picture book filled with fascinating details hidden in famous works of Christian art.</p>
 				<p>For better or worse, I can't help but question what others consider "settled science". Having spent years carefully hiding artistic and other references inside the picture book I was working on, I began to notice anomalies in the works of some of these artists: deliberate-looking choices I couldn't quite explain. These artists seemed to be making the kinds of choices I was making. And what I found was compelling enough that I ended up hiding those very findings inside the illustrations of my own book. However, unlike the original artists, I intend to reveal at least some of what I have found so that others can appreciate the true depth of what these masters had created.</p>
-				<p>A small number of the details hidden in my book are existing discoveries by others, but most are not to be found anywhere in the published literature that I have searched. of course, I might have simply missed such references, since papers do exist on findings arising from pareidolia.</p>
+				<p>A small number of the details hidden in my book are existing discoveries by others, but most are not to be found anywhere in the published literature that I have searched. Of course, I might have simply missed such references, since papers do exist on findings arising from pareidolia.</p>
 				<!-- Item 1 (round 4): BUY THE BOOK CTA, same .btn markup pattern as
 				     the "Pay the Quotation Fee" button further down this page —
 				     just the .btn-accent colour instead of .btn-primary. -->
