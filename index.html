@@ -649,7 +649,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 			<div class="cta-panel has-caption reveal" id="quotationFeeCTA">
 				<div class="cta-copy">
 					<h3>Start with the Quotation Fee</h3>
-					<p>You'll provide your email address and a telephone number at the checkout. Your number is provided only so I can reach you about your order if email fails or something is urgent. The receipt you get is your dated proof of claim under <a href="#frontrunning">my frontrunning promise</a>. <strong>The button opens a new window to the secure Stripe payment gateway</strong>. Paying the fee means you accept the <a href="terms.html">Art Review Service Terms</a>, which are also linked at the checkout.</p>
+					<p>You'll provide your email address and a telephone number at the checkout. Your number is provided only so I can reach you about your order if email fails or something is urgent. The receipt you get is your dated proof of claim under <a href="terms.html#b14">my frontrunning promise</a>. <strong>The button opens a new window to the secure Stripe payment gateway</strong>. Paying the fee means you accept the <a href="terms.html">Art Review Service Terms</a>, which are also linked at the checkout.</p>
 					<p><b>Before you pay, check the <a href="schedule.html">Schedule of Prior Analysis</a></b> to make sure your artwork is not on that list. Artworks on that list do not benefit from all the confidentiality guarantees.</p>
 				</div>
 				<div class="cta-buy">
@@ -1409,9 +1409,16 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 			var how = elCap.value === 'business'
 				? 'in the course of a trade, business, craft or profession'
 				: 'as a consumer, for purposes outside any trade, business, craft or profession';
-			var text = 'I confirm that I am resident or established in ' + where + ', that I am contracting ' +
-			           how + ', and that I am not resident or established in Quebec, Canada and am not paying ' +
-			           'for or on behalf of anyone who is.';
+			var text = 'I confirm that I am resident or established in ' + where + ' and that I am contracting ' +
+			           how + '.';
+			/* Quebec is a Canadian province, so this warranty only makes sense
+			   when Canada has been selected — a client contracting from any
+			   other served country is never asked to confirm something about
+			   Quebec residency. */
+			if (spec.provinces) {
+				text += ' I also confirm that I am not resident or established in Quebec, Canada ' +
+				        'and am not paying for or on behalf of anyone who is.';
+			}
 			/* Germany and the Netherlands are supplied business-to-business
 			   only. Consumer status there is decided objectively, on the
 			   purpose of the acquisition, not on the label the buyer picks
