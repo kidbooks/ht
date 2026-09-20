@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     AUTO-GENERATED FILE — DO NOT EDIT DIRECTLY.
+     This file is built by build.py from the templates in
+     src/ and partials/. Any changes made here will be lost
+     the next time build.py runs. To make a change:
+       - header/nav for the whole site  -> partials/header.html
+       - footer for the whole site       -> partials/footer.html
+       - this page's own content         -> src/index.html
+     Then re-run:  python build.py
+============================================================ -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>The Hunch Trail™ — Fine Art Analysis &amp; Hidden Details</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="I look for symbolic details I believe are concealed in famous paintings and sculpture, and I write up what I think I can see. My method is untested and my reports are opinion only — not a valuation, authentication or appraisal." />
+<link rel="canonical" href="https://hunchtrail.com/" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="The Hunch Trail™ — Hidden Details in Fine Art" />
+<meta property="og:description" content="I look for symbolic details I believe are concealed in famous paintings and sculpture. An Art Review is a documented search, not a discovery service. Opinion only." />
+<meta property="og:url" content="https://hunchtrail.com/" />
+<meta property="og:image" content="https://hunchtrail.com/images/intro.jpg" />
+
+<link rel="stylesheet" href="assets/css/fonts.css">
+
+<link rel="stylesheet" href="assets/css/hunch-theme.css">
+<style>
+/* Page-specific styles for the homepage only.
+   Shared tokens, reset, header, footer, buttons and utility
+   classes live in assets/css/hunch-theme.css. */
+/* ============================================================
+   HERO
+============================================================ */
+#hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;color:var(--parchment);background:linear-gradient(180deg,rgba(27,23,18,.42) 0%,rgba(27,23,18,.72) 62%,rgba(27,23,18,.94) 100%),url("images/intro.jpg") center 22%/cover no-repeat;}
+#hero .wrap{padding-bottom:clamp(2.5rem,6vw,4.5rem);padding-top:8rem;}
+#hero h1{font-size:clamp(2rem,5vw,4.2rem);max-width:16ch;color:var(--parchment);}
+#hero .lede{color:rgba(239,230,211,0.86);font-size:1.15rem;}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.8rem;align-items:center;}
+/* max-width here is only the no-JavaScript fallback. Normally the
+   script at the foot of this page overrides both the left margin and
+   the width so this paragraph sits directly beneath the CTA buttons,
+   sharing their left and right edges — see "Items 2 and 3" there. */
+.hero-note{font-family:var(--font-mono);font-size:.78rem;color:rgba(239,230,211,0.66);margin-top:1rem;max-width:46ch;}
+/* Item 2: once the three CTAs no longer fit on one row, the block of
+   buttons is centred instead of hugging the left edge. Whether they
+   have wrapped is decided in JavaScript rather than at a guessed pixel
+   width, because the wrap point depends on the button copy and on
+   whether the web font has finished loading. Centring cannot change how
+   many buttons fit per row, so this can't feed back into that test. */
+.hero-ctas.is-wrapped{justify-content:center;}
+/* Item: below ~417px, the primary CTA's label ("Start with the Quotation
+   Fee — US$99") is wider than the screen, and .btn's site-wide
+   white-space:nowrap stops it shrinking — the whole hero was overflowing
+   horizontally as a result. Letting hero buttons wrap their own text (with a
+   tighter line-height, since body's 1.65 would look too loose across two
+   lines) keeps every button on-screen at any width without touching the
+   nowrap behaviour .btn relies on everywhere else on the site. */
+@media (max-width:420px){
+	.hero-ctas .btn{white-space:normal;text-align:center;line-height:1.3;}
+}
+
+/* ============================================================
+   CASE FILE CARD (About / Book sections over photo bg)
+============================================================ */
+.photo-section{position:relative;color:var(--parchment);background-size:cover;background-position:center;}
+.photo-section::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(27,23,18,.92) 0%,rgba(27,23,18,.78) 40%,rgba(27,23,18,.42) 100%);}
+.photo-section .wrap{position:relative;}
+.case-card{max-width:640px;background:rgba(27,23,18,0.55);border:1px solid var(--line-dark);border-radius:var(--radius);padding:clamp(1.8rem,4vw,3rem);position:relative;}
+.case-card p{color:rgba(239,230,211,0.86);}
+.case-card h2{color:var(--parchment);}
+.case-links{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;margin-top:1.3rem;padding-top:1.3rem;border-top:1px solid var(--line-dark);}
+.case-links a{font-family:var(--font-mono);font-size:.82rem;text-decoration:underline;text-underline-offset:3px;color:var(--gold-light);}
+.book-cover{width:150px;box-shadow:var(--shadow);border:6px solid var(--white);float:right;margin:0 0 1.2rem 1.4rem;transform:rotate(2deg);}
+@media (max-width:640px){ .book-cover{width:110px;margin:0 0 1rem 1rem;} }
+
+/* ============================================================
+   PROOF / LOUPE GALLERY
+============================================================ */
+.proof-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:2.2rem;margin:2.4rem 0;}
+/* Item: Exhibit Two's image is portrait (685:1030) where Exhibit One's is
+   landscape (800:534). At equal grid-column widths that makes Exhibit Two
+   roughly twice as tall, leaving a large blank gap below Exhibit One's
+   shorter card. 644px matches the exact width where
+   repeat(auto-fit, minmax(280px,1fr)) above switches the grid from one
+   stacked column to two side-by-side columns — below it, both exhibits
+   are full-width and this override should not apply. */
+@media (min-width:644px){
+	/* Item 5 (round 4): previously both grid columns were equal (1fr 1fr,
+	   from auto-fit above), with Exhibit Two's image separately capped to
+	   70% of its column and centred — leaving Exhibit One's column mostly
+	   empty below its shorter landscape image. Instead of shrinking
+	   Exhibit Two's image further, this gives Exhibit One's column a
+	   bigger share of the row (13fr vs 7fr) and shrinks Exhibit Two's
+	   COLUMN to exactly the width its image already rendered at
+	   (70% of the old equal column = 7/10 of a 1fr share = a 7fr column
+	   once Exhibit One's column grows to 13fr, since 13+7=20=2×10).
+	   Net effect: Exhibit One's image gets noticeably larger, Exhibit
+	   Two's image stays the exact same rendered size it was before (just
+	   with no leftover side-margin, since its column now fits it exactly)
+	   — so Exhibit Two is never made smaller, only Exhibit One grows.
+	   Some blank space below Exhibit One remains by design: closing it
+	   completely would require shrinking Exhibit Two, which this
+	   deliberately avoids. */
+	.proof-grid{grid-template-columns:13fr 7fr;}
+	/* Item 5 (round 4): Exhibit Two's image/caption/tag now fill their
+	   column at 100% width (the column itself is already sized to match
+	   the image), so the old 70%-and-centre overrides are removed —
+	   they'd otherwise shrink the image a second time, inside its
+	   already-correctly-sized column. */
+}
+.proof-item figcaption{margin-top:.9rem;font-size:.92rem;color:var(--ink-soft);}
+.proof-item .exhibit-tag{display:block;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--oxblood);margin-bottom:.35em;}
+.loupe-frame{position:relative;overflow:hidden;border:9px solid var(--ink);border-radius:2px;box-shadow:var(--shadow);background:#000;touch-action:none;}
+.loupe-frame img{width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none;}
+.loupe-active:hover{cursor:none;}
+@media (hover:none){ .loupe-frame:hover{cursor:default;} }
+.loupe-lens{position:absolute;display:none;width:170px;height:170px;border-radius:50%;border:3px solid var(--gold);box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 0 0 2px rgba(255,255,255,.5);pointer-events:none;background-repeat:no-repeat;z-index:2;}
+@media (max-width:600px){ .loupe-lens{width:130px;height:130px;} }
+.loupe-hint{position:absolute;bottom:.7rem;left:.7rem;background:rgba(27,23,18,.72);color:var(--parchment);font-family:var(--font-mono);font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;padding:.4em .7em;border-radius:2px;pointer-events:none;transition:opacity .3s;}
+.loupe-frame.is-active .loupe-hint{opacity:0;}
+/* Item 4 (round 3): the .expand-btn fullscreen-icon button (formerly
+   present on both Exhibit One and Exhibit Two) has been removed from
+   the markup below at the user's request, so its CSS is removed here
+   too rather than left as dead weight nothing on the page uses. */
+
+/* Item 4: two copies of each instruction are in the markup — one written
+   for a mouse ("cursor" / "drag to zoom"), one for touch ("finger" /
+   "touch to zoom") — and CSS shows only the one that matches the device,
+   using the same hover/pointer test the magnifier script itself uses.
+   This is done in CSS (not JS) so the correct wording is present from
+   first paint, with no flash of the wrong text. */
+@media (hover:hover) and (pointer:fine){
+	.hint-touch, .instruction-touch{ display:none; }
+}
+@media not all and (hover:hover) and (pointer:fine){
+	.hint-mouse, .instruction-mouse{ display:none; }
+}
+
+/* Item 1: now that the surrounding paragraphs extend full-width, this
+   fixed-size (897px) image looked left-stranded with empty space only
+   on its right. text-align:center centers the image (the button
+   wrapping it becomes an inline element via all:unset) and also
+   centers the caption text beneath it. */
+figure.mantegna-fig{margin:2.2rem 0;text-align:center;}
+figure.mantegna-fig img{border:1px solid var(--line);cursor:zoom-in;}
+/* overflow-wrap: the caption ends in a bare wikipedia.org URL, which the
+   browser treats as one unbreakable 315px word. On a 320px screen that
+   alone pushed the whole page sideways. break-word lets it split only
+   when it would otherwise overflow, so wider screens are unaffected. */
+figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top:.6rem;font-style:italic;overflow-wrap:break-word;}
+
+/* ============================================================
+   FILE 04 — WORK / PRICING
+============================================================ */
+.price-note{background:var(--parchment-deep);border:1px solid var(--line);border-radius:var(--radius);padding:1.3rem 1.6rem;font-size:.98rem;margin:1.8rem 0 2.4rem;}
+.price-note strong{color:var(--oxblood);}
+
+.question-line{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:clamp(1rem,2.2vw,1.1rem);max-width:40ch;margin-bottom:.6em;}
+
+.steps{display:flex;flex-wrap:wrap;align-items:stretch;margin:2rem 0 2.6rem;counter-reset:step;}
+.step{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem 1.4rem;position:relative;flex:1 1 170px;}
+.step-arrow{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:2.2rem;color:var(--gold);font-size:1.5rem;line-height:1;}
+.step-arrow svg{width:1.4rem;height:1.4rem;display:block;}
+.step-num{font-family:var(--font-mono);font-weight:500;font-size:1rem;width:2.4rem;height:2.4rem;border-radius:50%;background:var(--ink);color:var(--gold-light);display:flex;align-items:center;justify-content:center;margin-bottom:.9rem;}
+.step h4{font-family:var(--font-mono);text-transform:uppercase;font-size:.85rem;letter-spacing:.04em;color:var(--ink);margin-bottom:.5em;}
+@media (max-width:760px){
+	.steps{flex-direction:column;}
+	.step{flex:1 1 auto;width:100%;}
+	.step-arrow{width:100%;padding:.2rem 0;}
+	.step-arrow svg{transform:rotate(90deg);}
+}
+.step p{font-size:.92rem;color:var(--ink-soft);}
+
+/* Item 6: between roughly 760px and 1060px, the 5 steps + 4 arrows no
+   longer fit on one line and wrap onto two rows. There's no gap
+   property on .steps, so the only "gap" that exists is the horizontal
+   one created by each .step-arrow's own width (2.2rem) sitting between
+   step boxes — the second row had nothing playing that role vertically
+   and sat flush against the first. Giving every child a matching
+   2.2rem top margin reproduces that same spacing between rows, and
+   pulling the container itself up by the same amount cancels the
+   unwanted extra margin this would otherwise add above the very first
+   row. Deliberately done with margin rather than flexbox's `gap`
+   property, which had inconsistent support on older Safari versions —
+   margin works everywhere. Scoped narrowly so it doesn't touch the
+   single-column phone layout below 760px (which already has its own
+   spacing) or the single-row layout above 1060px (where it would be
+   harmless but simply unused). */
+@media (min-width:761px) and (max-width:1060px){
+	.steps{margin-top:-0.2rem;}
+	.steps > .step,
+	.steps > .step-arrow{margin-top:2.2rem;}
+}
+
+/* Item 3: compact 3-step summary of the $99 -> quote -> approve
+   funnel, placed right where the price is introduced. Deliberately
+   smaller and plainer than the 5-step "How It Works" walkthrough below
+   it — this is a quick at-a-glance reassurance about total commitment,
+   not the operating instructions, so it borrows the same numbered-
+   circle language as .step-num without duplicating that component's
+   larger card/paragraph layout wholesale. */
+.funnel{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.6rem 1rem;margin:0 0 2.2rem;padding:1.2rem 1rem;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);}
+.funnel-step{display:flex;align-items:center;gap:.6rem;}
+.funnel-step-num{font-family:var(--font-mono);font-weight:500;font-size:.85rem;width:1.9rem;height:1.9rem;flex:0 0 auto;border-radius:50%;background:var(--ink);color:var(--gold-light);display:flex;align-items:center;justify-content:center;line-height:1;}
+.funnel-step-label{font-family:var(--font-mono);font-size:.82rem;text-transform:uppercase;letter-spacing:.03em;color:var(--ink);}
+.funnel-arrow{flex:0 0 auto;width:1.1rem;height:1.1rem;color:var(--gold);}
+.funnel-arrow svg{width:100%;height:100%;display:block;}
+/* Below ~500px the three steps and their arrows no longer fit on one
+   line — stack them instead of shrinking already-small text further. */
+@media (max-width:500px){
+	.funnel{flex-direction:column;}
+	.funnel-arrow{transform:rotate(90deg);}
+}
+
+.cta-panel{background:var(--ink);color:var(--parchment);border-radius:var(--radius);padding:clamp(1.8rem,4vw,2.8rem);display:flex;flex-wrap:wrap;gap:1.6rem 2.4rem;align-items:center;justify-content:space-between;margin:2.4rem 0;}
+.cta-panel h3{color:var(--parchment);margin-bottom:.3em;}
+.cta-panel .price{font-family:var(--font-mono);color:var(--gold-light);font-size:1.6rem;}
+.cta-panel p{color:rgba(239,230,211,0.75);max-width:44ch;}
+/* Item 6: the text column's natural content width (mainly the h3) and the
+   price/button column's natural width were, between them, a few pixels
+   wider than the panel's content box at ordinary desktop widths. Since
+   the panel is a wrapping flex row, that tiny overflow was enough to
+   drop the price/button column onto its own line under the text, every
+   time, on every desktop size, not just narrow ones — flex-wrap does not
+   care how small the overflow is. cta-copy is allowed to shrink (down to
+   320px) so it always yields the room cta-buy needs; cta-buy keeps its
+   natural size and stays put on the right. Below 640px the panel already
+   stacks the two columns deliberately (see the media query lower down),
+   so this only governs the desktop case. */
+.cta-copy{flex:1 1 320px;min-width:0;}
+/* flex-shrink stays on (unlike a flat 0 0 auto) and min-width:0 lets the
+   box itself shrink below its natural ~436px on narrow viewports — the
+   button's own white-space:nowrap stops its text from wrapping, so the
+   floor is the button's width, not the column's. Without this, cta-buy
+   held its full desktop width below 640px and ran off the right edge of
+   the screen on a phone. */
+.cta-buy{flex:0 1 auto;min-width:0;text-align:right;}
+/* Item 5: on the smallest phone screens there isn't quite enough room for
+   the button's full label plus arrow glyph on one line at full size, which
+   otherwise wraps the arrow onto its own line and inflates the box height.
+   Shrinking the button (font, padding, letter-spacing) here — combined
+   with white-space:nowrap on .btn above — keeps it on a single line. */
+@media (max-width:420px){
+	.cta-panel .price{font-size:1.3rem;}
+	.cta-panel .btn{font-size:.72rem;padding-left:1.2em;padding-right:1.2em;letter-spacing:.03em;}
+}
+
+/* ---------- Caption beneath the CTA panel ----------
+   The EU/UK 14-day cancellation notice used to sit inside the dark
+   panel, competing with the payment button. It now sits directly
+   under the panel as a caption: smaller and quieter, but close
+   enough to still read as part of the same block.
+
+   The gap is closed by overriding the panel's own bottom margin
+   (via .has-caption on the panel) and zeroing the caption's top
+   margin, so the two never double up. The caption keeps the
+   panel's full width, so its left and right edges line up with
+   the panel above it.
+
+   No colour is set here: the paragraph's text used to sit inside a
+   review-highlighting wrapper span; that wrapper is gone now, so this
+   rule just inherits the ordinary body colour directly. */
+.cta-panel.has-caption{margin-bottom:.6rem;}
+.cta-caption{font-size:.82rem;line-height:1.55;margin:0 0 .9rem;opacity:.85;}
+/* There are two captions under the CTA panel now (the EU/UK cancellation
+   note and the Quebec exclusion). They sit .9rem apart so they read as one
+   block, and the last one carries the gap down to the next heading. An
+   explicit class rather than :last-of-type, because other <p> elements are
+   siblings further down the same container. */
+.cta-caption-last{margin-bottom:2.4rem;}
+/* On phones the caption is a long run of small text, so it gets a
+   touch more leading and a slightly smaller size to stop it
+   dominating the screen directly under the payment button. */
+@media (max-width:640px){
+	.cta-caption{font-size:.78rem;line-height:1.62;}
+}
+
+/* ---------- Quebec confirmation gate above the payment button ----------
+   The Art Review is not supplied to anyone resident or established in
+   Quebec (Terms B1; warranty B10(f)). This tick box turns that exclusion
+   from a line of fine print into a specific confirmation given at the
+   moment of payment.
+
+   Layout: the right-hand half of .cta-panel is a narrow, right-aligned
+   column sized to the button. A full sentence dropped into it would widen
+   that column and squeeze the text block on the left, so the block is
+   capped and its own text left-aligned inside the otherwise right-aligned
+   column. margin-left:auto keeps the capped block flush with the button's
+   right edge. Below 640px the panel has already reflowed and there is more
+   horizontal room, so the cap is relaxed rather than removed — removing it
+   would let the sentence set the width of the whole right-hand column.
+
+   Nothing is persisted — no cookie, no localStorage, no sessionStorage —
+   so the confirmation is given afresh on every visit. That matches clause
+   B10(f), which is given afresh on every dealing, and keeps the site's "we
+   store nothing on your device" position literally true, which is why no
+   consent banner is needed anywhere on this site. */
+.cta-consent{display:flex;flex-direction:row-reverse;align-items:flex-start;gap:.55rem;max-width:26ch;margin:0 0 .85rem auto;text-align:right;font-size:.78rem;line-height:1.45;color:rgba(239,230,211,0.85);}
+.cta-consent input{flex:0 0 auto;width:1.05rem;height:1.05rem;margin:.14rem 0 0;accent-color:var(--gold);cursor:pointer;}
+.cta-consent label{cursor:pointer;}
+@media (max-width:640px){
+	.cta-consent{max-width:38ch;}
+}
+/* Locked state for the payment button. An <a> cannot carry the disabled
+   attribute, so the greyed-out state is a class plus aria-disabled, with
+   the href removed by JS. pointer-events:none is deliberately NOT used:
+   it suppresses the not-allowed cursor as well, leaving no feedback at
+   all about why the button is inert. */
+.btn.is-locked{background:#6E6A61;color:rgba(239,230,211,0.6);border-color:#57534B;box-shadow:none;cursor:not-allowed;}
+.btn.is-locked:hover{background:#6E6A61;transform:none;}
+
+/* ---------- Eligibility gate (full width, inside .cta-panel) ----------
+   The single Quebec tick box has been replaced by a short eligibility
+   check, because the service is now offered in six named jurisdictions
+   only and, in Germany and the Netherlands, only to business clients.
+   Four facts have to be established before the payment button unlocks:
+   billing country, Canadian province (Quebec only matters), whether the
+   client is contracting as a consumer or as a business, and — for
+   Germany and the Netherlands — a VAT identification number.
+
+   Layout: .cta-panel is a wrapping flex row whose two existing children
+   are the text block and the price/button column. The gate is added as
+   a third child with flex-basis:100% and order:3, so it forms its own
+   full-width row underneath them without disturbing the proportions of
+   the two columns above. A narrow right-hand column could not hold four
+   form controls.
+
+   Nothing is persisted — no cookie, no localStorage, no sessionStorage.
+   The declarations are given afresh on every visit, which keeps the
+   site's "we store nothing on your device" position literally true and
+   is why no consent banner is needed anywhere on this site. The values
+   are never transmitted from this page either; the record that matters
+   is the one Stripe captures at checkout. */
+.cta-gate{flex:1 1 100%;order:3;border-top:1px solid rgba(239,230,211,0.22);padding-top:1.4rem;}
+.cta-gate p{max-width:none;}
+/* .cta-gate-field is display:flex, which would otherwise beat the
+   hidden attribute; conditional fields need this to actually hide. */
+.cta-gate [hidden]{display:none;}
+.cta-gate-intro{font-size:.85rem;line-height:1.55;margin:0 0 1.1rem;}
+.cta-gate-row{display:flex;flex-wrap:wrap;gap:.9rem 1.4rem;margin-bottom:1.1rem;}
+.cta-gate-field{flex:1 1 15rem;min-width:0;display:flex;flex-direction:column;gap:.32rem;}
+.cta-gate-field label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:rgba(239,230,211,0.72);}
+.cta-gate-field select{font:inherit;font-size:.9rem;padding:.5rem .6rem;border:1px solid rgba(239,230,211,0.35);border-radius:var(--radius);background:rgba(239,230,211,0.06);color:var(--parchment);}
+/* Windows and Android draw the open dropdown list in the OS palette, so
+   parchment-on-transparent options come out unreadable there. Forcing a
+   dark-on-white option colour fixes the open list without affecting the
+   closed control. */
+.cta-gate-field select option{color:#1B1B1B;background:#FFFFFF;}
+.cta-gate-field select:focus{outline:2px solid var(--gold);outline-offset:1px;}
+/* The confirmation tick box reuses .cta-consent so there is one set of
+   check-box styles on the page, but inside the gate it runs full width
+   and reads left to right like the rest of the block. */
+.cta-gate .cta-consent{max-width:none;margin:0 0 .9rem;text-align:left;flex-direction:row;}
+.cta-gate-msg{font-size:.85rem;line-height:1.55;margin:0;padding:.75rem .95rem;border-left:3px solid var(--gold);background:rgba(239,230,211,0.07);border-radius:0 var(--radius) var(--radius) 0;}
+.cta-gate-msg a{color:var(--gold-light);}
+/* Shown only when JavaScript is unavailable, in place of a button that
+   deliberately cannot work without it. */
+.cta-noscript{font-size:.82rem;line-height:1.55;margin:.7rem 0 0;text-align:left;color:rgba(239,230,211,0.85);}
+.cta-noscript a{color:var(--gold-light);}
+@media (max-width:640px){
+	.cta-gate-field{flex-basis:100%;}
+}
+
+.exhibit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.6rem;margin:1.8rem 0 2.6rem;}
+.exhibit-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:transform .18s var(--ease),box-shadow .18s var(--ease);}
+.exhibit-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+.exhibit-card button{all:unset;display:block;width:100%;cursor:zoom-in;}
+.exhibit-card img{width:100%;aspect-ratio:8/5;object-fit:cover;}
+.exhibit-body{padding:1.1rem 1.2rem 1.3rem;}
+.exhibit-tag2{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--oxblood);}
+.exhibit-price{font-family:var(--font-mono);font-size:1.25rem;color:var(--ink);margin:.35em 0 .15em;}
+.exhibit-aud{font-family:var(--font-mono);font-size:.78rem;color:var(--ink-soft);opacity:.8;margin-bottom:.15em;}
+.exhibit-turn{font-size:.85rem;color:var(--ink-soft);}
+
+.legal-block{border-top:1px solid var(--line);padding-top:1.8rem;margin-top:1.8rem;}
+.legal-block h3{font-size:1.15rem;}
+.legal-block + .legal-block{margin-top:1.8rem;}
+.note-callout{background:rgba(122,46,39,0.07);border-left:3px solid var(--oxblood);padding:1rem 1.3rem;border-radius:0 var(--radius) var(--radius) 0;font-size:.95rem;}
+
+.video-wrap{position:relative;padding-top:56.25%;margin-top:1.6rem;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+/* ---- Video privacy facade ----------------------------------
+   Styles the click-to-load button that stands in for the YouTube
+   iframe until the visitor asks for it (see the markup comment
+   further down the page for why the iframe isn't in the markup).
+   The button fills .video-wrap exactly, so it inherits that
+   element's 16:9 ratio and rounded corners and needs no sizing
+   rules of its own — it stays correct at every screen width.
+   Deliberately no flexbox `gap` here: spacing is done with
+   margins, which behave identically on older iOS Safari. */
+.video-facade{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;margin:0;padding:1rem;border:0;background:var(--ink);color:var(--parchment);font-family:inherit;cursor:pointer;-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;}
+/* Poster image sits behind the play badge and label, dimmed so
+   light text stays readable over any frame the poster happens
+   to show. */
+.video-facade-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;}
+/* Set by JS when the poster file is missing or fails to load, so
+   visitors see a clean dark panel instead of a broken-image icon. */
+.video-facade.is-noposter .video-facade-thumb{display:none;}
+/* position:relative lifts the badge and label above the poster.
+   66px keeps the tap target comfortably over the 44px minimum
+   Apple recommends for touch. */
+.video-facade-play{position:relative;display:flex;align-items:center;justify-content:center;width:66px;height:66px;border-radius:50%;background:var(--accent-cta);border:3px solid var(--cta-border);transition:transform .25s var(--ease);}
+/* The triangle is a CSS border trick rather than an SVG or icon
+   font: no extra request, and it scales with the button. */
+.video-facade-play::after{content:"";border-style:solid;border-width:.62rem 0 .62rem 1.02rem;border-color:transparent transparent transparent var(--parchment);margin-left:.22rem;}
+.video-facade:hover .video-facade-play,.video-facade:focus-visible .video-facade-play{transform:scale(1.08);}
+.video-facade-label{position:relative;margin-top:.9rem;font-family:var(--font-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;text-align:center;line-height:1.4;text-shadow:0 1px 3px rgba(0,0,0,.65);}
+.video-facade-note{margin-top:.8rem;font-size:.82rem;line-height:1.5;color:var(--ink-soft);}
+
+/* ============================================================
+   CONTACT
+============================================================ */
+.contact-grid{display:grid;grid-template-columns:1.1fr 1.4fr;gap:2.5rem;align-items:start;}
+@media (max-width:800px){ .contact-grid{grid-template-columns:1fr;} }
+.form-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(1.6rem,3vw,2.2rem);}
+.field{margin-bottom:1.1rem;}
+.field label{display:block;font-family:var(--font-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin-bottom:.4em;}
+.field input,.field textarea{width:100%;padding:.8em .9em;border:1px solid var(--line);border-radius:var(--radius);background:var(--parchment);font-family:var(--font-body);font-size:1rem;color:var(--ink);}
+.field input:focus,.field textarea:focus{border-color:var(--gold);}
+.hp-field{position:absolute;left:-9999px;}
+
+/* ============================================================
+   FAQ
+============================================================ */
+/* Item 5: heading + "view all" button share a row, wrapping under the
+   heading on narrow screens instead of crowding it. */
+.faq-heading{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.8rem 1.4rem;margin-bottom:1.4rem;}
+.faq-heading h2{margin-bottom:0;}
+/* Sizing only — colour comes from the shared .btn / .btn-outline
+   classes so it automatically matches the site's palette and stays in
+   sync with it if that palette ever changes. */
+.faq-toggle-all{font-size:.72rem;padding:.6em 1.2em;}
+
+.faq-list{border-top:1px solid var(--line);}
+.faq-item{border-bottom:1px solid var(--line);}
+.faq-item summary{cursor:pointer;list-style:none;padding:1.3rem 0;font-family:var(--font-display);font-size:1.08rem;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{content:"+";font-family:var(--font-mono);font-size:1.3rem;color:var(--gold);flex-shrink:0;transition:transform .2s;}
+.faq-item[open] summary::after{transform:rotate(45deg);}
+.faq-item .faq-body{padding-bottom:1.4rem;max-width:70ch;color:var(--ink-soft);}
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<!-- shared header — edit partials/header.html, then run build.py -->
+<header id="header">
+	<div class="wrap bar">
+		<h1><a href="https://hunchtrail.com">The Hunch Trail<sup class="headerTM">TM</sup></a></h1>
+		<nav class="site-nav" id="siteNav">
+			<ul>
+				<li><a href="#pareidolia">Hidden Details</a></li>
+				<li><a href="#one">About</a></li>
+				<li><a href="#two">The Book</a></li>
+				<li><a href="#work">Art Reviews</a></li>
+				<li><a href="#contact">Contact</a></li>
+				<li><a href="#faq">FAQ</a></li>
+			</ul>
+		</nav>
+		<div class="header-actions">
+			<a href="#work" class="btn btn-primary header-cta">Art Review Quote</a>
+			<a href="bookshop_links.html" class="btn btn-accent header-cta">BUY THE BOOK</a>
+			<button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Toggle menu"><span></span></button>
+		</div>
+	</div>
+</header>
+
+<main id="main">
+
+	<!-- ============================================================
+	     HERO
+	============================================================ -->
+	<section id="hero">
+		<div class="wrap">
+			<p class="eyebrow">Independent Art Research · Entertainment and Education</p>
+			<h1>Uncovering Secrets in Famous Artworks</h1>
+			<p class="lede">For the past few years, I've privately catalogued what I believe are details that master painters and sculptors concealed in plain sight in their art. Most art scholars would treat the same marks as accidents of paint or perception, and they are often right. If you own or are thinking about buying a piece of fine art, an Art Review is a documented search for what might be hidden in yours. It is an opinion, not a valuation, authentication or attribution, and I make no claim it will affect what your piece is worth. I've even hidden clues to details I believe I have found in famous works of Christian art in the illustrations of my debut children's picture book titled, <i>Nicky's Secret: A Christmas Story</i>.</p>
+			<div class="hero-ctas">
+				<a href="#work" class="btn btn-primary">Get an Art Review quote</a>
+				<!-- Item 3 (round 4): same BUY THE BOOK CTA as the nav bar (item 2). -->
+				<a href="bookshop_links.html" class="btn btn-accent">BUY THE BOOK</a>
+				<a href="#pareidolia" class="btn btn-ghost">Sample hidden details ↓</a>
+			</div>
+			<p class="hero-note">The US$99 Quotation Fee is how an Art Review begins. The review itself is quoted separately and custom to your piece, and starts at US$30,000.</p>
+			<p class="hero-note">My method is untested. It has never been validated, peer-reviewed, replicated by anyone else, or measured against any standard, and I hold no qualification in art history, connoisseurship, valuation or authentication. While I will be publishing on the methods in future, there is presently no publicly-available evidence that it reliably finds anything. An Art Review buys you a fixed number of documented hours of examination, and the report is my opinion about what I think I can see.</p>
+		</div>
+	</section>
+
+	<!-- ============================================================
+	     FILE 01 — THE PHENOMENON
+	============================================================ -->
+	<section id="pareidolia">
+		<div class="wrap">
+			<p class="eyebrow reveal">The Phenomenon</p>
+			<h2 class="reveal">I Think Artists Hide Things In Plain Sight</h2>
+			<p class="reveal" style="font-size:.92rem;"><b>What follows is my interpretation and opinion, not a finding of fact.</b> I make no claim that any artist intended what I describe, that anyone else would see the same thing, or that any of it can be verified.</p>
+
+			<p class="text-columns reveal">Pareidolia is the tendency of our minds to see faces and familiar forms in random visual noise like the texture of clouds, wood grain, or a slice of toast. Mainstream scholarship tends to treat such perceptions in artworks as noise rather than intent. My research suggests that <span class="mark">many of history's greatest artists were fluent in the language of pareidolia, and used it intentionally</span>, hiding symbolic details in plain sight for viewers willing to look closely enough to find them.</p>
+
+			<p class="text-columns reveal">Below are two examples. The first one is fairly well-documented online. The other is one I noticed and, to my knowledge, isn't described anywhere else. <strong><span class="instruction-mouse">You can drag your cursor across the first image to see what's hiding.</span><span class="instruction-touch">You can drag your finger across the first image to see what's hiding.</span></strong></p>
+
+			<div class="proof-grid reveal">
+				<figure class="proof-item">
+					<span class="exhibit-tag">Exhibit One</span>
+					<div class="loupe-frame loupe-active" data-zoom="2.6" style="aspect-ratio:800/534;">
+						<img src="images/hiding/fulls/01.jpg" alt="Saint Sebastian by Andrea Mantegna, circa 1470, with a horse-rider concealed in the clouds" draggable="false">
+						<div class="loupe-lens" aria-hidden="true"></div>
+						<span class="loupe-hint hint-mouse">Drag to zoom</span>
+						<span class="loupe-hint hint-touch">Touch to zoom</span>
+					</div>
+					<figcaption>Saint Sebastian — Andrea Mantegna, c.1470. Kunsthistorisches Museum, Vienna. Look for the horse-rider in the clouds.</figcaption>
+				</figure>
+				<figure class="proof-item">
+					<span class="exhibit-tag">Exhibit Two</span>
+					<div class="loupe-frame" data-zoom="2.6" style="aspect-ratio:685/1030;">
+						<img src="images/hiding/fulls/02.jpg" alt="Route de village, Auvers by Paul Cézanne, with a large hidden face" draggable="false">
+						<!-- <div class="loupe-lens" aria-hidden="true"></div> -->
+						<!-- <span class="loupe-hint hint-mouse">Drag to zoom</span>
+						<span class="loupe-hint hint-touch">Touch to zoom</span> -->
+					</div>
+					<figcaption>Route de village, Auvers — Paul Cézanne. See the large face?</figcaption>
+				</figure>
+			</div>
+
+			<p class="text-columns reveal">These aren't isolated cases. My independent research — which draws on art history, science, and religious symbolism — has catalogued many such details across famous paintings, often details significant to the work's subject matter.</p>
+
+			<p class="text-columns reveal">Take the horse-rider hidden in the clouds above: it appears in <i>The Martyrdom of Saint Sebastian</i>, painted by Andrea Mantegna around 1470 and now in Vienna's Kunsthistorisches Museum. Two other versions of the same subject are also attributed to Mantegna — one in the Louvre, one in Venice's Ca' d'Oro.</p>
+
+			<figure class="mantegna-fig reveal">
+				<button type="button" class="enlarge" style="all:unset;cursor:zoom-in;" data-full="images/hiding/mantegna_versions_wikipedia.jpg" data-alt="Three extant versions of Andrea Mantegna's Martyrdom of Saint Sebastian">
+					<img src="images/hiding/mantegna_versions_wikipedia.jpg" alt="Three extant versions of Andrea Mantegna's Martyrdom of Saint Sebastian">
+				</button>
+				<figcaption>Three extant versions of Andrea Mantegna's <i>Martyrdom of Saint Sebastian</i>. Credit: en.wikipedia.org/wiki/Saint_Sebastian_(Mantegna)</figcaption>
+			</figure>
+
+			<p class="text-columns reveal">I can't speak to the authorship of any of these versions, and I make no claim about which came first or which is by whose hand — those are questions for the museums, catalogue raisonné committees and conservators who are qualified to answer them. What I can say is what I think I see: a horse-rider form in the Vienna painting that reads to me as deliberate. It seems like real artistic invention that would not tend to arise from someone copying an existing artwork. Indeed, a hidden detail like this would be very difficult for a forger to notice, and thus to copy. But I'm not a licensed, accredited or certified art valuer, appraiser or authenticator, I hold no formal qualification in art history, connoisseurship, forensic art analysis or valuation, and my method has never been tested or peer-reviewed. So this is just my two cents.</p>
+
+			<p class="text-columns reveal">If you'd like this kind of analysis applied to a specific piece — one you own, or are thinking about buying — that's exactly what the <a href="#work">Art Review service</a> further down this page is for. It is offered only to clients in the <strong>USA, the UK, Germany, the Netherlands, Canada (excluding Quebec) and Australia</strong>. In <strong>Germany and the Netherlands it is offered to business clients only</strong> — not to consumers buying for themselves. Please note that the service is provided in English only. See clause <a href="terms.html#b1">B1</a> of the Terms.</p>
+		</div>
+	</section>
+
+	<!-- ============================================================
+	     FILE 02 — RESEARCHER, AUTHOR, PAREIDOLIAC
+	============================================================ -->
+	<section id="one" class="photo-section" style="background-image:url('images/one.jpg');">
+		<div class="wrap">
+			<p class="eyebrow reveal">The Researcher</p>
+			<div class="case-card reveal">
+				<h2>About</h2>
+				<p>I'm Bany Jaya — independent researcher, and author of <i>Nicky's Secret: A Christmas Story</i>, a children's picture book filled with fascinating details hidden in famous works of Christian art.</p>
+				<p>For better or worse, I can't help but question what others consider "settled science". Having spent years carefully hiding artistic and other references inside the picture book I was working on, I began to notice anomalies in the works of some of these artists: deliberate-looking choices I couldn't quite explain. These artists seemed to be making the kinds of choices I was making. And what I found was compelling enough that I ended up hiding those very findings inside the illustrations of my own book. However, unlike the original artists, I intend to reveal at least some of what I have found so that others can appreciate the true depth of what these masters had created.</p>
+				<p>A small number of the details hidden in my book are existing discoveries by others, but most are not to be found anywhere in the published literature that I have searched. of course, I might have simply missed such references, since papers do exist on findings arising from pareidolia.</p>
+				<!-- Item 1 (round 4): BUY THE BOOK CTA, same .btn markup pattern as
+				     the "Pay the Quotation Fee" button further down this page —
+				     just the .btn-accent colour instead of .btn-primary. -->
+				<p style="margin-top:1.3rem;"><a href="bookshop_links.html" class="btn btn-accent">BUY THE BOOK</a></p>
+				<p>If you own, or are considering buying, a painting or sculpture, I offer the same kind of analysis directly — as an <a href="#work">Art Review</a>.</p>
+				<div class="case-links">
+					<a href="#two">Read about the book →</a>
+					<a href="#work">See the Art Review service →</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+	     FILE 03 — THE BOOK
+	============================================================ -->
+	<section id="two" class="photo-section" style="background-image:url('images/two.jpg');">
+		<div class="wrap">
+			<p class="eyebrow reveal">The Book</p>
+			<div class="case-card reveal">
+				<img class="book-cover" src="fullbook/pages/1.jpg" alt="Cover of Nicky's Secret: A Christmas Story">
+				<h2>Nicky's Secret: A Christmas Story</h2>
+				<p><i>Nicky's Secret</i> is written for 4-to-8-year-olds, in language conforming to both American and British English. Kids and adults alike tend to be surprised and delighted by the twists and turns the story takes, right up to the end.</p>
+				<p>Use the links below to read the entire book for free in low-resolution, watch it being read aloud on video, or to learn more about it from the fact sheet.</p>
+				<div class="case-links">
+					<a href="fullbook/readfree.html">Read free →</a>
+					<a href="https://www.youtube.com/watch?v=O1Nt9e1qOdA">Watch it read aloud →</a>
+					<a href="https://www.youtube.com/@thehunchtrail">More videos →</a>
+					<a href="info/fact_sheet_NickysSecret.pdf">Fact sheet (PDF) →</a>
+				</div>
+				<p style="margin-top:1.3rem;"><span class="mark mark-on-dark">Want to buy it?</span>  <a href="bookshop_links.html"><strong>View bookshops worldwide carrying Nicky's Secret</strong></a>. In some countries (i.e. presently the USA and Australia) you can even find the hardcover edition, which has noticeably better paper, binding and print quality than the softcover.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+	     FILE 04 — THE ART REVIEW (conversion engine)
+	============================================================ -->
+	<section id="work" class="section-alt">
+		<div class="wrap">
+			<p class="eyebrow reveal">The Art Review</p>
+			<h2 class="reveal">The Art Review: How It Works, What It Costs</h2>
+			<p class="question-line reveal">What is hiding in that artwork you own or plan to buy?</p>
+			<p class="text-columns reveal">An Art Review is a documented, unaided visual examination of photographs of your artwork, carried out by me personally over a set number of hours, looking for forms and details I believe the artist may have concealed deliberately. What you receive is a written report of what I found, or of what I did not find.</p>
+
+			<p class="text-columns reveal"><b>What this is not.</b> It is not a valuation, an authentication, an attribution, an appraisal, or advice of any kind. I hold no formal qualification in art history, connoisseurship, forensic analysis or valuation, and my method has never been tested, peer-reviewed or published in the scientific literature. It is a subjective opinion arrived at by looking carefully — nothing more. Before acting on anything in a report, get independent advice from a suitably qualified professional.</p>
+			
+			<p class="reveal"><a href="#quotationFeeCTA" class="btn btn-dark">Order one now <span style="font-size:1.3em";>↓</span></a></p>
+
+			<h3 class="reveal">How It Works</h3>
+
+			<div class="price-note reveal">
+				<b>Two separate payments, two separate steps.</b> The <strong>Quotation Fee</strong> (US$99, approximately A$139) is what gets the process started and buys you a custom quote. The <strong>Art Review</strong> itself is quoted individually for your piece and starts at US$30,000 — see <a href="#fee_estimate">example fees below</a>. Both are total amounts payable. No Australian GST is presently charged on any fee, wherever you are. Prices will not change when I register for GST, but the price shown will include it for Australian clients.
+				<p style="margin-top:.8rem;font-size:.9em;">Australian dollar figures shown on this page are approximate, converted at an indicative rate of 1 USD = 1.4049 AUD (updated 20 September 2026). This is an estimate only. The amount actually debited will be set by your bank or payment provider at their rate on the day and may include foreign exchange margins and international transaction fees. The contractual price is the US dollar amount. Rates supplied by ExchangeRate-API.</p>
+			</div>
+
+			<div class="steps reveal">
+				<div class="step">
+					<div class="step-num">01</div>
+					<h4>Pay the Quotation Fee</h4>
+					<p>US$99 via secure Stripe checkout. This protects you from frontrunning and limits requests to genuine clients.</p>
+				</div>
+				<div class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+				<div class="step">
+					<div class="step-num">02</div>
+					<h4>Tell me about your piece</h4>
+					<p>I'll ask you to send me a few digital photos — from several angles if it's a sculpture.</p>
+				</div>
+				<div class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+				<div class="step">
+					<div class="step-num">03</div>
+					<h4>Get your custom quote</h4>
+					<p>Within ten business days of receiving enough material to price the work, I'll be in touch with the precise fee and the number of hours it covers. Anything you send me as part of an Art Review is seen only by me.</p>
+				</div>
+				<div class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+				<div class="step">
+					<div class="step-num">04</div>
+					<h4>Approve &amp; pay</h4>
+					<p>Sign the Art Review Agreement I send you, and email me the scanned contract. I'll email you a countersigned copy with bank details, and you pay by bank transfer. You cover bank charges and currency conversion costs. The quoted fee must arrive in full.</p>
+				</div>
+				<div class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+				<div class="step">
+					<div class="step-num">05</div>
+					<h4>Receive your Art Review</h4>
+					<p>A written report setting out the hours worked, what I examined, and any hidden details I believe I found. If the report finds nothing, that's a complete delivery, with no refunds on that basis.</p>
+				</div>
+			</div>
+
+			<div class="cta-panel has-caption reveal" id="quotationFeeCTA">
+				<div class="cta-copy">
+					<h3>Start with the Quotation Fee</h3>
+					<p>You'll provide your email address and a telephone number at the checkout. Your number is provided only so I can reach you about your order if email fails or something is urgent. The receipt you get is your dated proof of claim under <a href="#frontrunning">my frontrunning promise</a>. <strong>The button opens a new window to the secure Stripe payment gateway</strong>. Paying the fee means you accept the <a href="terms.html">Art Review Service Terms</a>, which are also linked at the checkout.</p>
+					<p><b>Before you pay, check the <a href="schedule.html">Schedule of Prior Analysis</a></b> to make sure your artwork is not on that list. Artworks on that list do not benefit from all the confidentiality guarantees.</p>
+				</div>
+				<div class="cta-buy">
+					<div class="price">US$99</div>
+					<div style="font-size:.8em;opacity:.75;margin-bottom:.6rem;">approx. A$139</div>
+					<div style="font-size:.8em;opacity:.9;margin-bottom:.6rem;">Refunded in full if I decline the job, or in several other set situations — see the <a href="terms.html#b4">refund terms</a>.</div>
+					<!-- FAIL CLOSED: the Stripe URL is held in data-href, not href, and is
+					     promoted to a real href by the eligibility gate below only once
+					     every answer is acceptable. With JavaScript off or blocked the
+					     button is inert and no payment can be made — deliberate, so that
+					     nobody can reach the checkout without passing the gate. The
+					     is-locked class ships in the markup so the button renders greyed
+					     from the first paint rather than flashing enabled. -->
+					<a data-href="https://buy.stripe.com/fZu9AV1lqg6zbwW9Pk38400" target="_blank" rel="noopener" class="btn btn-primary is-locked" id="payQuotationFee" aria-disabled="true" aria-describedby="gateMessage">Pay the Quotation Fee ↗</a>
+					<div style="font-size:.8em;color:var(--oxblood-bright);margin-bottom:.6rem;">Please complete the below dropdowns to access the payment button</div>
+					<noscript>
+						<p class="cta-noscript">The payment button needs JavaScript, because the eligibility questions below have to be answered before a payment can be accepted. Please enable JavaScript for this page, or <a href="#contact">send me an enquiry</a> and I will arrange payment another way.</p>
+					</noscript>
+				</div>
+
+				<!-- ELIGIBILITY GATE ------------------------------------------
+				     The payment button above stays locked until this block is completed.
+				     Nothing here is stored or transmitted; the answers exist
+				     to stop an ineligible payment being made, and are given
+				     again as Stripe checkout fields so there is a record.
+				     -------------------------------------------------------- -->
+				<div class="cta-gate" id="eligibilityGate">
+					<p class="cta-gate-intro"><b>Before you pay, a short eligibility check.</b> I supply this service in six jurisdictions only, and in two of them to business clients only. Your answers are not saved or sent from this page — you will be asked the same questions again at the Stripe checkout, where they are recorded against your order. Business clients in Germany and the Netherlands: I will ask you by email for your VAT identification number, and verify it, before any work begins.</p>
+					<div class="cta-gate-row">
+						<div class="cta-gate-field">
+							<label for="gateCountry">Billing country</label>
+							<select id="gateCountry">
+								<option value="">Select…</option>
+								<option value="US">United States</option>
+								<option value="GB">United Kingdom</option>
+								<option value="DE">Germany</option>
+								<option value="NL">Netherlands</option>
+								<option value="CA">Canada</option>
+								<option value="AU">Australia</option>
+								<option value="XX">None of these</option>
+							</select>
+						</div>
+						<div class="cta-gate-field" id="gateProvinceField" hidden>
+							<label for="gateProvince">Province or territory</label>
+							<select id="gateProvince">
+								<option value="">Select…</option>
+								<option value="AB">Alberta</option>
+								<option value="BC">British Columbia</option>
+								<option value="MB">Manitoba</option>
+								<option value="NB">New Brunswick</option>
+								<option value="NL">Newfoundland and Labrador</option>
+								<option value="NT">Northwest Territories</option>
+								<option value="NS">Nova Scotia</option>
+								<option value="NU">Nunavut</option>
+								<option value="ON">Ontario</option>
+								<option value="PE">Prince Edward Island</option>
+								<option value="QC">Quebec</option>
+								<option value="SK">Saskatchewan</option>
+								<option value="YT">Yukon</option>
+							</select>
+						</div>
+						<div class="cta-gate-field">
+							<label for="gateCapacity">You are contracting</label>
+							<select id="gateCapacity">
+								<option value="">Select…</option>
+								<option value="consumer">As a consumer — for myself</option>
+								<option value="business">As a business — for my trade or profession</option>
+							</select>
+						</div>
+					</div>
+					<div class="cta-consent" id="gateConfirmWrap" hidden>
+						<input type="checkbox" id="gateConfirm">
+						<label for="gateConfirm" id="gateConfirmLabel"></label>
+					</div>
+					<p class="cta-gate-msg" id="gateMessage" role="status" hidden></p>
+				</div>
+			</div>
+			<p class="cta-caption reveal"><b>Where this service is offered.</b> This service is offered only to clients in the USA, UK, Germany, Netherlands, Canada (<b>but not Quebec</b>) and Australia, and only to business clients in Germany and the Netherlands. I do not market to, solicit or accept standard engagements from other jurisdictions. Unsolicited enquiries may be considered case-by-case but often cannot be accepted owing to legal constraints, and any such engagement would be on separate, individually negotiated terms. <a href="#contact">Enquiries are welcome here</a>.</p>
+			<p class="cta-caption reveal"><b>If you are a consumer in the United Kingdom:</b> you have 14 days to cancel this Quotation without giving a reason, and the checkout asks you two separate questions: whether you want me to start work before those 14 days are up, and whether you accept that the right to cancel ends once the report is delivered. Nothing is pre-ticked. If you answer yes to both and then cancel, you pay only for the work actually done. If you don't, I won't start until the 14 days have passed. Consumers in Canada have cancellation rights under their own provincial law instead &mdash; they are described in clause <a href="terms.html#b26">B26</a>. Germany and the Netherlands are business-only, so no consumer cancellation right arises there. Full details, and the cancellation form, are in <a href="terms.html#part-b">Part B of the Terms</a>.</p>
+			<p class="cta-caption reveal"><b>In Germany and the Netherlands this service is supplied only to businesses, professionals and public institutions acquiring it for business purposes. It is not offered to, marketed to, or available to consumers</b> within the meaning of &sect;13 BGB, or to consumers in the Netherlands, and a consumer engagement in either country cannot be accepted on any terms. You must hold the artwork for business, professional, institutional or investment purposes — not for personal enjoyment or private collecting.</p>
+
+			<br>
+
+			<h3 id="fee_estimate" class="reveal">Fee Estimate</h3>
+			<p class="text-columns reveal">While every quote is custom, the examples below should help you estimate your likely fees and turnaround time. <span class="mark">Each estimate below covers three (3) review passes</span>. Three is the default number I quote for. If you want more passes, or fewer, say so and the quote and the Services Agreement will state the number we agree on — see clause B6 of the <a href="terms.html#b6">Terms</a>. A review pass is a full manual scan of the artwork for hidden details, usually lasting from several hours to several days for very large and detailed works. Preparation time is required before each session — not unlike letting your eyes adjust before stargazing — with several days gap between passes producing the best results. Fees increase with the number of hours, the size of the piece, and its level of detail. The hidden details from the artworks I've concealed in my book typically required around eight (8) review passes to uncover, but diminishing returns tended to set in beyond the fourth or fifth pass. Turnaround figures are indicative estimates, not guaranteed dates — see clause B3 of the <a href="terms.html#b3">Terms</a>. Because passes are deliberately spaced several days apart, more passes means a longer elapsed time.</p>
+
+			<p class="text-columns reveal"><b>How the fee is calculated.</b> Your quote states an hourly rate and the total number of examination hours it buys, organised into review passes. The fee is the rate multiplied by the hours. I keep a contemporaneous time record and give it to you with your report. <b>You are paying for those hours of examination, not for a result</b>. If these hours produce no findings, the report says so and the engagement has been performed in full, with no refunds permitted on this basis. I don't give verbal findings, and anything said before the report lands is preliminary. If a piece warrants more hours than we agreed, I may suggest additional ones, but no extra hour is worked or charged unless you agree in writing and pay for it first, and you are never obliged to accept the suggestion.</p>
+
+			<p class="text-columns reveal">Each figure below is the total amount payable. I am not currently registered for Australian GST, so no GST is charged on any fee, wherever you are. If I become registered, the price will not change, but the price shown to Australian clients will include GST and prices to clients outside Australia will be unaffected. Australian dollar figures are approximate, converted at an indicative rate of 1 USD = 1.4049 AUD (updated 20 September 2026); the amount actually debited is set by your bank at its rate on the day and may include FX margins and international transaction fees. The contractual price is the US dollar amount. Bank charges, telegraphic transfer fees and currency conversion costs are borne by the client.</p>
+
+			<p><strong>Tap any image below to view it in full screen mode</strong>.</p>
+
+			<div class="exhibit-grid reveal">
+				<div class="exhibit-card">
+					<button type="button" class="enlarge" data-full="images/fulls/01.jpg" data-alt="Example artwork with limited detail">
+						<img src="images/thumbs/01.jpg" alt="Example artwork with limited detail" loading="lazy">
+					</button>
+					<div class="exhibit-body">
+						<span class="exhibit-tag2">Exhibit A — Limited detail</span>
+						<div class="exhibit-price">US$30,000</div>
+						<div class="exhibit-aud">approx. A$42,148</div>
+						<div class="exhibit-turn">~2 weeks turnaround</div>
+					</div>
+				</div>
+				<div class="exhibit-card">
+					<button type="button" class="enlarge" data-full="images/fulls/02.jpg" data-alt="Example artwork with moderate detail">
+						<img src="images/thumbs/02.jpg" alt="Example artwork with moderate detail" loading="lazy">
+					</button>
+					<div class="exhibit-body">
+						<span class="exhibit-tag2">Exhibit B — Moderate detail</span>
+						<div class="exhibit-price">US$70,000</div>
+						<div class="exhibit-aud">approx. A$98,345</div>
+						<div class="exhibit-turn">~4 weeks turnaround</div>
+					</div>
+				</div>
+				<div class="exhibit-card">
+					<button type="button" class="enlarge" data-full="images/fulls/03.jpg" data-alt="Example artwork with rich detail">
+						<img src="images/thumbs/03.jpg" alt="Example artwork with rich detail" loading="lazy">
+					</button>
+					<div class="exhibit-body">
+						<span class="exhibit-tag2">Exhibit C — Rich detail</span>
+						<div class="exhibit-price">US$180,000</div>
+						<div class="exhibit-aud">approx. A$252,886</div>
+						<div class="exhibit-turn">~6 weeks turnaround</div>
+					</div>
+				</div>
+				<div class="exhibit-card">
+					<button type="button" class="enlarge" data-full="images/fulls/04.jpg" data-alt="Example artwork with intricate detail">
+						<img src="images/thumbs/04.jpg" alt="Example artwork with intricate detail" loading="lazy">
+					</button>
+					<div class="exhibit-body">
+						<span class="exhibit-tag2">Exhibit D — Intricate detail</span>
+						<div class="exhibit-price">US$350,000</div>
+						<div class="exhibit-aud">approx. A$491,723</div>
+						<div class="exhibit-turn">~9 weeks turnaround</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="legal-block reveal">
+				<h3>Eligibility</h3>
+				<p class="text-columns">Before accepting an engagement or a payment, I check your name — and the name of anyone paying on your behalf — against the Australian Government's <a href="https://www.dfat.gov.au/international-relations/security/sanctions/consolidated-list" rel="noopener">DFAT Consolidated List</a>, the United States OFAC Specially Designated Nationals list (and, where the dealing warrants it, the OFAC Sectoral Sanctions Identifications list), the UK OFSI consolidated list, and the EU consolidated list. I decline only where that check returns a match, or where a specific sanctions measure applies to the dealing. I do not refuse anyone solely because of their nationality, country of residence, or national or ethnic origin. If a payment is frozen or rejected by a bank or an authority, I will deal with the funds as Australian law requires and refund anything I am not permitted to keep. I may also decline an engagement on any of the grounds listed in <a href="terms.html#b12">clause B12 of the Terms</a>, in which case the Quotation Fee is refunded in full.</p>
+			</div>
+
+			<div class="legal-block reveal">
+				<h3>An Example</h3>
+				<p class="text-columns">Below is a video that details selected findings from a study I undertook that loosely resembles the kind of analysis I perform as part of an Art Review.</p>
+				<!-- PRIVACY FACADE (round 7).
+				     The YouTube <iframe> is deliberately NOT in this markup.
+				     Loading it — even from the youtube-nocookie.com domain —
+				     sends the visitor's IP address to Google and writes a
+				     device identifier into browser local storage before the
+				     visitor has done anything at all. Under UK and EU law
+				     that needs the visitor's prior consent. So instead we
+				     show a locally hosted poster image and a button, and
+				     build the iframe in JavaScript only once that button is
+				     pressed. The choice is not remembered anywhere, so the
+				     button returns on every visit — that is the point: the
+				     site itself still stores nothing on anyone's device, and
+				     so still needs no cookie banner. -->
+				<div class="video-wrap">
+					<button type="button" class="video-facade"
+					        data-video-src="https://www.youtube-nocookie.com/embed/70mC4FUnCxg?si=zcgm6Tuym2fGgVpv&amp;autoplay=1&amp;playsinline=1"
+					        data-video-title="The Hunch Trail — an example art analysis">
+						<!-- PLACEHOLDER — this file does not exist yet.
+						     Supply a 1280x720 JPEG here, ideally a frame
+						     exported from the video itself. Until it exists
+						     the script hides this <img> and the button shows
+						     on its plain dark background instead.
+						     Do NOT point this at img.youtube.com: fetching
+						     the thumbnail from Google leaks the visitor's IP
+						     address, which is exactly what the facade is
+						     here to prevent. -->
+						<img class="video-facade-thumb" src="images/video-poster.jpg" alt="" width="1280" height="720" loading="lazy">
+						<span class="video-facade-play" aria-hidden="true"></span>
+						<span class="video-facade-label">Play video (loads from YouTube)</span>
+					</button>
+				</div>
+				<p class="video-facade-note">Nothing is sent to YouTube until you press play. Once you do, YouTube — a Google service — receives your IP address and may store data on your device under Google's own privacy policy, which we do not control. See our <a href="privacy.html">Privacy Policy</a>.</p>
+				<noscript>
+					<p class="video-facade-note">This video needs JavaScript to load here. <a href="https://www.youtube.com/watch?v=70mC4FUnCxg" target="_blank" rel="noopener">Watch it on YouTube instead →</a></p>
+				</noscript>
+			</div>
+
+			<div class="legal-block reveal">
+				<h3>Limitations on Assurances</h3>
+				<div class="note-callout">
+					<p>An Art Review can't guarantee that an artist intentionally hid any detail I find because nobody can be certain of an artist's true intent, and interesting forms can appear by pure chance. I can't guarantee any effect, positive or negative, on your artwork's valuation, authenticity, or attribution, and I can't guarantee that every hidden detail the artist has included — or any detail at all — will be found. What you're paying for is a sincere, disciplined attempt to find what might be hidden in plain sight, applying pareidolia carefully and without slipping into delusion. These findings can then be taken to professional, accredited, or certified art professionals for a formal opinion on possible implications for valuation, authentication, and attribution of the artwork.</p>
+					<p>I am not a licensed, accredited, or certified art valuer, appraiser, or authenticator, and I hold no formal qualification in art history, connoisseurship, forensic art analysis, or valuation. My opinions are based on visual comparison and independent research and should not be relied upon as a substitute for formal authentication (e.g. by a recognised catalogue raisonné committee, forensic conservator, or accredited valuer) or a certified valuation (e.g. by a valuer accredited under the relevant professional body in your jurisdiction).</p>
+					<p><b>The method is untested.</b> The techniques used in an Art Review have not been validated, peer-reviewed, replicated by anyone else, or tested against any published standard. There is no body of evidence showing that they reliably find concealed content, and no accreditation, endorsement or professional recognition stands behind them. What you receive is my opinion about what I think I can see in an image. It is not a valuation, an appraisal, an authentication, an attribution, or an expert report, and it should not be described as any of those things to anyone else.</p>
+					<p>The opinions provided in an Art Review therefore reflect my personal research and visual analysis. Any decision to buy, sell, insure, restore, or otherwise act upon an artwork discussed on this site or in any consultation should be made only after obtaining independent advice from a suitably qualified and, where relevant, licensed professional. My liability for loss or damage arising from reliance on those opinions is limited as set out in the <a href="terms.html">Terms</a>, except to the extent that liability cannot be excluded under the Australian Consumer Law or under any other law that applies to you and cannot be excluded.</p>
+					<p><b>Addressee only — no third-party reliance.</b> An Art Review report is prepared solely for the client named in it, solely for the purpose stated in it. No other person may rely on it. I accept no duty of care and no liability of any kind to any other person — including, but not limited to, a buyer, a seller, an agent, an auction house, an insurer, a lender or a valuer — whether or not I knew the report might be shown to them. If you pass the report on to a third party, make sure to convey this limitation to them as well.</p>
+					<p><b>Limit of liability.</b> Nothing in the <a href="terms.html">Terms</a> excludes or limits liability that cannot lawfully be excluded or limited, including liability for death or personal injury caused by my negligence, fraud, or any liability under mandatory consumer law. Subject to that, my total liability arising out of or in connection with the service is limited to the Service Fee actually paid. That limit does not apply to the extent that the mandatory law of your own place of residence provides otherwise.</p>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<!-- ============================================================
+	     CONTACT
+	============================================================ -->
+	<section id="contact">
+		<div class="wrap">
+			<p class="eyebrow reveal">General Enquiries</p>
+			<h2 class="reveal">Get In Touch</h2>
+			<div class="contact-grid reveal">
+				<div>
+					<p class="lede" style="font-size:1.05rem;">Have a general question that isn't answered <a href="#faq">in the FAQ below</a>? Send it here.</p>
+					<p class="note-callout">This form is for general enquiries only. If you're asking about pricing or requesting a quote, please use the <a href="#work">Quotation Fee</a> button above instead — pricing questions sent through this form won't usually receive a reply.</p>
+					<p class="note-callout">I supply this service in six places only: the USA, the UK, Germany, the Netherlands, Canada excluding Quebec, and Australia, as well as to business clients in Germany and the Netherlands. You are welcome to enquire about a bespoke arrangement from outside these jurisdictions.</p>
+					<p style="font-size:.9rem;">A bespoke agreement will not often be possible. The obstacles are legal rather than commercial — consumer, tax, language, and data-protection rules that a one-person business working in English cannot meet in every country. Most of what makes an unlisted country difficult is its consumer-protection laws, which do not apply where the client is contracting for a trade, business or profession. <b>If you are enquiring on behalf of a gallery, dealership, auction house, insurer, fund or other business, please say so and provide your registration or VAT number</b>.</p>
+				</div>
+				<div class="form-card">
+					<form method="post" action="https://api.web3forms.com/submit">
+						<input type="hidden" name="access_key" value="fa3f3ed2-114a-49dc-9976-e09dc0703085">
+						<input type="hidden" name="redirect" value="https://hunchtrail.com/form_received.html">
+						<input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off">
+						<div class="field">
+							<label for="f-name">Name</label>
+							<input type="text" id="f-name" name="name" required />
+						</div>
+						<div class="field">
+							<label for="f-email">Email</label>
+							<input type="email" id="f-email" name="email" required />
+						</div>
+						<div class="field">
+							<label for="f-message">Message</label>
+							<textarea id="f-message" name="message" rows="5" required></textarea>
+						</div>
+						<button type="submit" class="btn btn-outline" style="width:100%;">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+	     FAQ
+	============================================================ -->
+	<section id="faq" class="section-alt">
+		<div class="wrap">
+			<p class="eyebrow reveal">Questions, Answered</p>
+			<div class="faq-heading reveal">
+				<h2>Frequently Asked Questions</h2>
+				<button type="button" class="btn btn-outline faq-toggle-all" id="faqToggleAll" aria-expanded="false">View all</button>
+			</div>
+
+			<div class="faq-list reveal">
+				<details class="faq-item">
+					<summary>Are my identity and the findings of my report confidential?</summary>
+					<div class="faq-body">
+						<p>Your identity — including your name and your address — the photographs and information you send me, and the fact that you engaged me at all stay confidential <b>permanently</b> — unless and until you, your legal personal representative, or your successor in title if you are a company or institution, give me express written permission otherwise. <b>The contents of your report are confidential for five (5) years</b> from the date I deliver the report to you, and that particular obligation then ends. I am also permanently barred from connecting you, or any other named person, to any named artwork. So even when the five years are up, I can't name you, can't say a piece was reviewed for a client, and can't publish your photographs, which stay yours. I may disclose confidential information in the following circumstances: with your prior written permission; where a law, a court or a regulator compels me; to my own legal, accounting or insurance advisers, who are themselves bound to keep it confidential; and so far as necessary to bring or defend a claim between us. The obligation also does not apply at all to information that is already public through no fault of mine, that I can show by dated records I already held before you sent it, that I developed independently without reference to anything you gave me, or that I lawfully received from a third party who was under no duty of confidence. Those limits are set out in full at <a href="terms.html#b13-limits">clause B13 of the Terms</a> — please read them before you pay.</p>
+						<p><b>What is not confidential: the artwork itself.</b> My promise covers <i>your information</i> and <i>what I found for you</i>. It does not cover the artwork, its existence, its attribution, its history, or any other fact about it. It also doesn't cover artworks I have already analysed independently. This includes artworks listed on the <a href="schedule.html">Schedule of Prior Analysis</a>, those with references in my picture book, everything covered on my YouTube channel, and everything covered on my other public channels, <b>including material I publish after your engagement begins</b>. I remain free to discuss and publish my own independent work on all of it. If your artwork is on that list when you request a quotation, I'll decline the job and refund you in full unless you tell me in writing that you want to go ahead anyway. Please check the exclusion list before you pay.</p>
+						<p>There are four narrow exceptions to confidentiality, set out in clause B13 of the <a href="terms.html">Terms</a>: information already public through no fault of mine, information I already held on dated record, information I worked out independently of you, and information I lawfully received from someone else who owed no duty of confidence. I also have to keep your information secure, and if anything is lost, stolen or accessed without authority I have to tell you promptly.</p>
+						<p>If the artwork you name is one I have already analysed, I will tell you straight away, decline the job, and refund the fee in full. Those artworks are published in advance on the <a href="schedule.html">Schedule of Prior Analysis</a>, so you can check before paying anything.</p>
+						<p><b>And one you cannot check in advance.</b> I will not review an artwork I have already reviewed for someone else within the previous five years, because a second report would cover the same ground and include duplicated findings, and that would put the earlier client&#x27;s confidentiality at risk. If your artwork is one of those, I will tell you that I cannot accept the engagement and I'll refund you in full &mdash; the US$99, and any Art Review fee you might have paid. <b>I will not tell you the reason</b>, because saying so would itself reveal that someone else engaged me to review that artwork. I will not confirm, deny or discuss any speculations regarding this, whoever asks. This is unavoidable in the event that a second person pays to review a painting I've previously worked on. See clause <a href="terms.html#b30">B30</a> of the Terms.</p>
+					</div>
+				</details>
+				<details class="faq-item" id="frontrunning">
+					<summary>If you find something interesting in an artwork I'm considering buying, will you try to buy it yourself?</summary>
+					<div class="faq-body">
+						<p>Absolutely not. For five (5) years from the time you pay the Quotation Fee, I personally will not pursue any transaction involving your artwork, and I will not publish any finding, image or analysis about it that came out of your review — not in a video, an article, a book, or anywhere else. That promise is given by me personally and binds me personally, and it survives the end of any engagement. Your dated Quotation Fee receipt serves as proof of your prior claim. <b>This is why I avoid beginning any discussion with a prospective client, or wish to know the identity of the artwork, until after the Quotation Fee is paid</b>.</p>
+						<p><b>Two things end it early, and you should know both before you pay.</b> The promise protects an artwork you have actually commissioned me to review. It stops applying, or never applies at all, if either of these happens: <b>(i)</b> you pay the US$99, receive your quote, and do not enter into a Services Agreement for that artwork within <b>sixty (60) days</b> of the date of the quote; or <b>(ii)</b> I refund the Quotation Fee to you prior to you paying for the Art Review. In either case I am free from that point to research, write about, publish on, and accept another client&#x27;s instructions in respect of that artwork. What never lapses is your side of it: your identity, your address and your photographs stay confidential permanently, and I am permanently barred from connecting you &mdash; or any other identified person &mdash; to any identified artwork unless and until you, your legal personal representative, or your successor in title if you are a company or institution, give me express written permission otherwise. The exact wording is at clause <a href="terms.html#b13">B13</a> and clause <a href="terms.html#b14">B14</a> of the Terms.</p>
+					</div>
+				</details>
+				<details class="faq-item">
+					<summary>Do you specialise in a particular genre?</summary>
+					<div class="faq-body">
+						<p>Religious art is my preferred genre, and where I do my best work. It's the subject matter I find most engaging, and where I feel I am most likely to correctly identify intentional concealment by the artist.</p>
+					</div>
+				</details>
+				<details class="faq-item" id="eligibility">
+					<summary>Do I need to be from a particular country to use this service?</summary>
+					<div class="faq-body">
+						<p><b>Yes.</b> The service is offered only to clients in the <b>United States, the United Kingdom, Germany, the Netherlands, Canada excluding Quebec, and Australia</b>. In <b>Germany and the Netherlands it is available to business clients only</b>, so if you are buying for yourself there rather than for a trade or profession, I cannot accept the engagement on any terms. I do not market to, solicit or accept standard engagements from anywhere else at this time. You are welcome to <a href="#contact">send a request</a> for a bespoke agreement from outside these countries, where any such engagement would be on separately negotiated terms. This is most likely to work out when you are a business client intending to use the service for business purposes, for which you must provide your relevant business registration number, or your VAT number.</p>
+						<p><b>I don't offer this service to anyone resident or established in Quebec (Canada) due to French language obligations that arise there.</b> It applies to everyone resident or established in Quebec on identical terms, whatever their language, nationality, or ethnic or national origin, and it has no effect on anyone outside Quebec. The rest of Canada is unaffected, and a French-speaking client anywhere else is welcome on exactly the same terms as everyone else, on the understanding that the service itself is delivered entirely in English. Clause <a href="terms.html#b1">B1</a> of the Terms addresses this.</p>
+						<p>If you're in Quebec and somehow pay the US$99 Quotation Fee anyway, I'll refund it in full — no deduction — and I'll leave it there. If it has gone further than that and I've already started the Art Review itself before either of us realises, I refund the Art Review fee less the hours actually worked at the rate you'd already agreed, and I give you my time record with it. Tell me early and there is nothing to deduct. Clause <a href="terms.html#b1">B1</a> of the Terms sets this out.</p>
+						<p>I do check your name, and the name of whoever is paying, against the Australian Government's <a href="https://www.dfat.gov.au/international-relations/security/sanctions/consolidated-list" rel="noopener">DFAT Consolidated List</a>, the United States OFAC Specially Designated Nationals list (and, where the dealing warrants it, the OFAC Sectoral Sanctions Identifications list), the UK OFSI consolidated list, and the EU consolidated list before accepting an engagement. A small number of sectoral and region-specific measures exist, and if one applies, I'll inform you and refund your fee in full.</p>
+						<p>The contract is governed by the law of New South Wales, Australia. If you are a consumer somewhere else — the UK, Canada or Australia — that doesn't take away the consumer protections you have at home, and it doesn't stop you bringing a claim in your own courts. Business clients, including all clients in Germany and the Netherlands, are on a different track: disputes go to arbitration seated in Sydney under the ACICA Rules. That arbitration agreement comes into existence only when a business client separately and expressly agrees to it in writing, by initialling the arbitration box in the Art Review Services Agreement before signing. Until that happens, there is no arbitration agreement and the courts of New South Wales apply as normal. No consumer is ever required to arbitrate. See clause <a href="terms.html#b31">B31</a>.</p>
+					</div>
+				</details>
+				<details class="faq-item" id="refunds">
+					<summary>Is the US$99 Quotation Fee ever refunded?</summary>
+					<div class="faq-body">
+						<p>Yes, in a number of situations, all set out in <a href="terms.html#b4">clause B4 of the Terms</a> — that clause is the complete list, and it governs. In summary: if I decline to quote or decline the job on any of the grounds listed there; if your artwork turns out to be one I have already analysed — on the <a href="schedule.html">Schedule of Prior Analysis</a>, in my picture book, or covered on my YouTube channel or other public channels — and you'd rather not go ahead without the usual confidentiality; if I can't lawfully deal with you; if I don't get a quote to you within ten business days of receiving enough material to price the work; if you change your mind within 14 days and haven't yet sent me anything about the artwork; if you turn out to have been in Quebec when you paid; if I have already carried out an Art Review of the same artwork for another client, so that clause <a href="terms.html#b30">B30</a> requires me to decline; or if you are a consumer resident or established in Germany or the Netherlands, where I supply business clients only. In each case you get the whole US$99 back.</p>
+						<p><b>Consumers in the UK</b> have a separate statutory right to cancel within 14 days without giving any reason, whether or not one of the above applies. If you asked me to start work during those 14 days and then cancel, you pay only for the hours actually worked; otherwise you get a full refund. <b>Consumers in Canada</b> have cancellation rights under provincial law, described in clause B26. Germany and the Netherlands are business-only, so no consumer cancellation right arises there.</p>
+						<p>What it doesn't cover is simply deciding not to proceed once you've seen the quote, or the quoted number being higher than you'd hoped. Pricing your piece is real work and it gets done either way. Nothing here limits any right you have under the Australian Consumer Law or the consumer law of your own country. Clause B4 of the <a href="terms.html">Terms</a> sets this out in full.</p>
+					</div>
+				</details>
+				<details class="faq-item">
+					<summary>What payment methods are available?</summary>
+					<div class="faq-body">
+						<p>You pay the Quotation Fee by card through Stripe. Stripe decides which cards and payment methods it accepts in your country. If you go ahead with the full Art Review after receiving your quote, you'll pay by telegraphic transfer / international bank transfer to my Australian bank account — but only after you've returned a signed agreement and I've sent you a countersigned copy. All fees are quoted in US dollars and each quoted figure is the total amount payable. I am not currently registered for GST, so no GST is charged on any fee, wherever you are. If I become registered, the price won't change, but will include GST for Australian clients, while clients outside Australia will be unaffected. Bank charges, intermediary bank fees and currency conversion costs are borne by you, and the quoted amount needs to reach the account in full, so please instruct your bank accordingly. Stripe may show and charge the US$99 in your own currency; the rate and any conversion fee are set by Stripe or your card issuer, not by me, so the amount debited can differ slightly from US$99.</p>
+					</div>
+				</details>
+				<details class="faq-item">
+					<summary>How do I send you the artwork for analysis?</summary>
+					<div class="faq-body">
+						<p>When you pay the Quotation Fee, you'll provide your email address and a telephone number on the Stripe payment form. I'll then email you personally to arrange submission of the artwork. Everything after that is done by email. You'll send digital photos of the piece (several angles for sculpture) and some background details, so I can prepare an accurate quote. You keep the copyright in everything you send; I only use it to perform the analysis. Please don't send identity documents or photographs of yourself — I don't need them and won't keep them. Within 30 days of delivering your report I delete or return your images and notes, keeping only one archival copy for my own records, my tax obligations and in case a legal claim is ever made.</p>
+					</div>
+				</details>
+				<details class="faq-item" id="report_rights">
+					<summary>Who owns the report, and what can I do with it?</summary>
+					<div class="faq-body">
+						<p>I keep the copyright, because the report is the output of my own method and I need to be able to stop other people repackaging and selling it. That doesn't restrict you. Once you've paid in full, you get a permanent, irrevocable licence to use the report however you need to for your artwork — hand it to valuers, appraisers, conservators, insurers, auction houses, lenders, your lawyer or accountant, a prospective buyer or seller, or put it before a court. They can copy it for those purposes too.</p>
+						<p>Don't sell or licence the report as a product in its own right, and if you pass on part of it, make clear it's an extract. Clause B15 of the <a href="terms.html">Terms</a> has the exact wording. Anything you send me — your photos, your background notes — stays yours.</p>
+						<p>Additionally, the report is prepared solely for the client named in it, solely for the purpose stated in it. No other person may rely on it. I accept no duty of care and no liability of any kind to any other person — including, but not limited to, a buyer, a seller, an agent, an auction house, an insurer, a lender or a valuer — whether or not I knew the report might be shown to them. If you pass the report on to any third party, it must be provided with this limitation conveyed as well.</p>
+					</div>
+				</details>
+				<details class="faq-item" id="signing">
+					<summary>Do I have to sign anything?</summary>
+					<div class="faq-body">
+						<p>Not for the US$99 Quotation Fee — paying it at the Stripe checkout is where you accept the terms, which are linked there. For the Art Review itself there is a full Art Review Services Agreement I will provide as part of my quotation process. It names the piece, the hourly rate, the number of examination hours, the fee and the timetable, and it ends with a table of acknowledgements you initial box by box — confirming, among other things, that you understand you are buying the search for hidden details rather than ay guarantee of finding any, that I hold no formal qualifications, that my method is unproven, and that I carry no professional indemnity insurance due to common exclusions relating to art consulting. You print the agremeent, complete it, initial it, sign it, scan every page, and email the scan back to me. I countersign and send it back. Only then do you pay. At these amounts, it's in both our interests to have the specifics written down and signed rather than inferred from a payment.</p>
+					</div>
+				</details>
+				<details class="faq-item">
+					<summary>Do you have qualifications that authorise you to analyse, value, attribute, and authenticate art?</summary>
+					<div class="faq-body">
+						<p>No.</p>
+						<p>Any observations, opinions, and analysis presented on this website and as part of my Art Reviews that relate to attribution, authenticity, or value of any artwork are my personal opinions provided only for educational and entertainment purposes. They reflect my personal, independent research and visual analysis and do not constitute a formal appraisal, authentication, or valuation. The findings of an Art Review can only be considered clues and pointers that you can present to licensed, accredited, or certified art professionals to obtain a formal opinion on possible implications for valuation, authentication, and attribution of the artwork.</p>
+						<p>I am not a licensed, accredited, or certified art valuer, appraiser, or authenticator, and I hold no formal qualification in art history, connoisseurship, forensic art analysis, or valuation. My opinions are based on visual comparison and independent research and should not be relied upon as a substitute for formal authentication (e.g. by a recognised catalogue raisonné committee, forensic conservator, or accredited valuer) or a certified valuation (e.g. by a valuer accredited under the relevant professional body in your jurisdiction).</p>
+						<p>Any decision to buy, sell, insure, restore, or otherwise act upon an artwork discussed on this site or in any consultation should be made only after obtaining independent advice from a suitably qualified and licensed professional. My liability for loss or damage arising from reliance on the opinions expressed on this website, or in any Art Review report, is limited as set out in the Terms, except to the extent that liability cannot be excluded under the Australian Consumer Law or under any other law that applies to you and cannot be excluded.</p>
+					</div>
+				</details>
+				<details class="faq-item">
+					<summary>How would I know whether your techniques are scientifically legitimate?</summary>
+					<div class="faq-body">
+						<p>If legitimacy arises from a consensus of individuals who are recognised as experts within a field, I don’t think you can. The techniques I have developed, and the research I have performed, are not public. They are proprietary. It is my claim that they represent innovation in a field that has traditionally tended to ignore findings borne out of pareidolia. As a result, my methods are not part of the body of recognised, peer-reviewed scientific literature. This means that there are no formal qualifications to train anyone to perform the particular kind of technical research services I am offering. What makes it particularly hard to absorb into the scientific literature is the inherent subjectivity involved when dealing with the level of the human perceptual system where pareidolia operates. There is a real possibility that no widespread scientific consensus ever forms around these techniques. Since most people equate a consensus of experts to ‘the truth’, you might never get the consensus you require to feel confident that you have the truth. But the scientific method was designed precisely to stand up to even the most unanimous agreement of recognised experts in any field. And the scientific method is ultimately performed by individuals.</p>
+					</div>
+				</details>
+				<details class="faq-item">
+					<summary>Do you provide an opinion on the authenticity and attribution of artworks subjected to an Art Review?</summary>
+					<div class="faq-body">
+						<p>No. I do not provide concrete opinions on attribution and authentication because I am not formally qualified, licensed, accredited or certified to do so. I use proprietary analytical methods to surface hidden details in an artwork. If other other works attributed to the same artist contain similar such details, the similarities between the hidden details in such works could form the basis of an argument for attribution and authentication. You can then take such information to a qualified, licensed or certified professional to perform formal assessments, such as attributions, authentications, or valuations. I do not provide any actual authentications or attributions. I only provide the investigative service that has the potential to inform such processes.</p>
+					</div>
+				</details>
+				<details class="faq-item">
+					<summary>Do you perform valuations and art appraisals?</summary>
+					<div class="faq-body">
+						<p>No, I do not. I only attempt to uncover any details that might have been concealed using pareidolia. While these could have an effect on the amount of interest in a piece of art, I make no claim about what effect, if any, that has on the demand for, or the value of a piece of art — see clause B7 of the Terms. Valuations and appraisals must be performed by qualified, licensed, accredited, and/or certified art professionals.</p>
+					</div>
+				</details>
+				<details class="faq-item">
+					<summary>Do you guarantee that my artwork will increase in value, or at least not decrease in value as a result of the findings of an Art Review?</summary>
+					<div class="faq-body">
+						<p>No. I offer no guarantees or assurances in regards to the effects of an Art Review on the valuations of any artwork.</p>
+					</div>
+				</details>
+				<details class="faq-item">
+					<summary>What rules govern the use of this site and the services you offer?</summary>
+					<div class="faq-body">
+						<p>Use of this site is subject to our <a href="terms.html">Website Terms of Use</a>. Collection and use of personal information is subject to our <a href="privacy.html">Privacy Policy</a>.</p>
+					</div>
+				</details>
+			</div>
+		</div>
+	</section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<!-- shared footer — edit partials/footer.html, then run build.py -->
+<footer id="footer">
+	<div class="wrap">
+		<div class="legal-lines">
+			Copyright &copy; 2025-<span id="thisYear"></span> The Hunch Trail<sup>TM</sup><br>
+			Bany Jaya, sole trader<br>
+			12A Ferraro Crescent<br>
+			West Hoxton NSW 2171 Australia<br>
+			ABN: 40 337 610 019<br>
+			<a href="mailto:email@hunchtrail.com">email@hunchtrail.com</a>
+		</div>
+		<div class="legal-lines">
+			<a href="terms.html">Terms of Service</a><br>
+			<a href="privacy.html">Privacy Policy</a><br>
+			<a href="schedule.html">Schedule of Prior Analysis</a>
+		</div>
+	</div>
+	<div class="wrap footer-notices">
+		<p class="footer-notice" lang="en"><b>Germany and the Netherlands:</b> the Art Review service is supplied to businesses, professionals and public institutions for business purposes only. It is not offered or supplied to consumers within the meaning of &sect;13 BGB, or to consumers in the Netherlands.</p>
+		<p class="footer-notice" lang="fr"><b>Qu&eacute;bec (Canada): </b>nos services d&rsquo;analyse d&rsquo;&oelig;uvres d&rsquo;art ne sont pas offerts aux personnes r&eacute;sidant ou &eacute;tablies au Qu&eacute;bec (Canada), et nous n&rsquo;acceptons pas de client&egrave;le qu&eacute;b&eacute;coise. Ce site et l&rsquo;ensemble de nos services, communications et documents sont disponibles en anglais seulement.</p>
+	</div>
+</footer>
+
+<!--
+	Anonymous visit logger — page path, timestamp and referral-source
+	tag only, no IP address, no cookie. See assets/js/visit-log.js for
+	exactly what it does and does not send, and privacy.html section 2
+	for the disclosure this corresponds to.
+-->
+<script src="assets/js/visit-log.js"></script>
+
+<!-- ============================================================
+     LIGHTBOX
+============================================================ -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+	<button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close image">&times;</button>
+	<img src="" alt="" id="lightboxImg">
+</div>
+
+<noscript>
+	<style>.reveal{opacity:1 !important;transform:none !important;}</style>
+</noscript>
+
+<script src="assets/js/hunch-theme.js"></script>
+<script>
+(function(){
+	"use strict";
+
+	/* Item 1 (round 3): client-side honeypot check for the contact
+	   form. The hidden "botcheck" checkbox below is already checked
+	   server-side by Web3Forms (the form's submission endpoint) — a
+	   submission is silently rejected there if it comes back checked,
+	   which is what actually stops spam, since a bot that skips the
+	   honeypot to dodge this JS would just as easily skip the same
+	   check if it lived only in the browser. What this adds is a
+	   second, client-side check: it stops a filled-in submission from
+	   ever leaving the browser at all, sparing a pointless round trip
+	   to Web3Forms for the small share of bots that do execute page
+	   JavaScript. Note for later: Web3Forms' own docs now call this
+	   honeypot approach "not recommended" and suggest pairing it with
+	   (or replacing it with) their hCaptcha/reCAPTCHA integration —
+	   worth considering if spam through this form becomes a problem,
+	   since honeypots alone are increasingly easy for modern bots to
+	   detect and ignore. Source: docs.web3forms.com, "Honeypot" page. */
+	var contactForm = document.querySelector('#contact form');
+	if (contactForm) {
+		contactForm.addEventListener('submit', function(e){
+			var botField = contactForm.querySelector('input[name="botcheck"]');
+			if (botField && botField.checked) {
+				e.preventDefault();
+				/* Deliberately no message and no console log here — a
+				   bot filled in a field meant to be invisible to real
+				   visitors, so there's no one to usefully inform. */
+			}
+		});
+	}
+
+	/* Items 2 and 3 (round 7): the hero CTA row, and the note beneath
+	   it. Two things happen here, in this order, because the second
+	   depends on the first:
+
+	     2. If the buttons have wrapped onto more than one row, the
+	        .is-wrapped class centres them (see the CSS near the top of
+	        this page).
+	     3. The note below is then given the same left and right edges
+	        as the buttons — specifically, the left edge of whichever
+	        button sits furthest left and the right edge of whichever
+	        sits furthest right. Those edges move as the viewport
+	        resizes and as the buttons reflow, which is the behaviour
+	        asked for.
+
+	   Everything is measured from the rendered page rather than
+	   inferred from a pixel breakpoint. The point at which the buttons
+	   wrap depends on the button copy, the viewport, and which font
+	   has actually loaded, so any hard-coded breakpoint would drift
+	   out of sync the first time one of those changed.
+
+	   Note the ordering: .is-wrapped is applied BEFORE the edges are
+	   read, so the positions measured are the centred ones actually on
+	   screen. Reading them afterwards forces one layout pass, which is
+	   why this runs on resize rather than on scroll.
+
+	   The previous version of this block measured .hero-ctas itself.
+	   That element is a block-level flex container, so its box is the
+	   full width of the page wrapper no matter how wide the buttons
+	   inside it are — which is why the note's right edge did not line
+	   up with the last button. Measuring the buttons fixes that. */
+	var heroCtas = document.querySelector('.hero-ctas');
+	/* There are two .hero-note paragraphs now — the disclaimer and the
+	   price note — and both should track the button block, so this
+	   collects all of them rather than only the first. */
+	var heroNotes = document.querySelectorAll('.hero-note');
+	if (heroCtas && heroNotes.length) {
+		var syncHeroLayout = function(){
+			var buttons = heroCtas.querySelectorAll('.btn');
+			if (!buttons.length) return;
+
+			/* Have they wrapped? Compare the vertical position of the
+			   first and last button — a direct reading of the fact,
+			   rather than a guess from screen width. */
+			var wrapped = buttons[0].offsetTop !== buttons[buttons.length - 1].offsetTop;
+			heroCtas.classList.toggle('is-wrapped', wrapped);
+
+			/* Outermost left and right edges across every button, on
+			   whichever row each one ended up. */
+			var rowLeft = heroCtas.getBoundingClientRect().left;
+			var left = Infinity, right = -Infinity, box, i;
+			for (i = 0; i < buttons.length; i++) {
+				box = buttons[i].getBoundingClientRect();
+				if (box.left < left) left = box.left;
+				if (box.right > right) right = box.right;
+			}
+
+			/* Expressed relative to the row's own left edge, so the
+			   result is independent of page scroll position. When the
+			   buttons are NOT wrapped they start at the left edge, so
+			   the margin comes out as zero and the note simply ends at
+			   the last button — the single-row case, handled by the
+			   same two lines rather than a separate branch. */
+			for (i = 0; i < heroNotes.length; i++) {
+				heroNotes[i].style.marginLeft = (left - rowLeft) + 'px';
+				heroNotes[i].style.maxWidth = (right - left) + 'px';
+			}
+		};
+		syncHeroLayout();
+		window.addEventListener('resize', syncHeroLayout, {passive:true});
+		/* The self-hosted webfonts load with font-display:swap, so the CTA
+		   buttons can resize slightly once the real webfont replaces
+		   the fallback font — re-measure once that settles. */
+		if (document.fonts && document.fonts.ready) {
+			document.fonts.ready.then(syncHeroLayout);
+		}
+	}
+
+	/* Item 5: FAQ "view all" toggle. Clicking expands every FAQ item at
+	   once (or collapses them if already all open); the button's label
+	   also updates if the visitor opens/closes items individually,
+	   so it never claims a state that isn't actually true. */
+	var faqToggleAll = document.getElementById('faqToggleAll');
+	var faqItems = document.querySelectorAll('.faq-item');
+	if (faqToggleAll && faqItems.length) {
+		function syncFaqToggleLabel(){
+			var allOpen = Array.prototype.every.call(faqItems, function(item){ return item.open; });
+			faqToggleAll.textContent = allOpen ? 'Collapse all' : 'View all';
+			faqToggleAll.setAttribute('aria-expanded', allOpen ? 'true' : 'false');
+		}
+		faqToggleAll.addEventListener('click', function(){
+			var expand = faqToggleAll.getAttribute('aria-expanded') !== 'true';
+			faqItems.forEach(function(item){ item.open = expand; });
+			syncFaqToggleLabel();
+		});
+		faqItems.forEach(function(item){
+			item.addEventListener('toggle', syncFaqToggleLabel);
+		});
+	}
+
+	/* Magnifier loupe */
+	var supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+	document.querySelectorAll('.loupe-frame').forEach(function(frame){
+		var img = frame.querySelector('img');
+		var lens = frame.querySelector('.loupe-lens');
+		var zoom = parseFloat(frame.dataset.zoom) || 2.4;
+		var rect = null;
+
+		function updateRect(){ rect = frame.getBoundingClientRect(); }
+
+		function getPoint(clientX, clientY){
+			if (!rect) updateRect();
+			return {
+				x: Math.max(0, Math.min(rect.width, clientX - rect.left)),
+				y: Math.max(0, Math.min(rect.height, clientY - rect.top))
+			};
+		}
+
+		function move(clientX, clientY){
+			var p = getPoint(clientX, clientY);
+			var lensSize = lens.offsetWidth;
+			lens.style.left = (p.x - lensSize/2) + 'px';
+			lens.style.top = (p.y - lensSize/2) + 'px';
+			lens.style.backgroundSize = (rect.width*zoom) + 'px ' + (rect.height*zoom) + 'px';
+			lens.style.backgroundPosition = (-(p.x*zoom - lensSize/2)) + 'px ' + (-(p.y*zoom - lensSize/2)) + 'px';
+		}
+
+		function show(){
+			updateRect();
+			lens.style.backgroundImage = 'url("' + img.getAttribute('src') + '")';
+			lens.style.display = 'block';
+			frame.classList.add('is-active');
+		}
+		function hide(){
+			lens.style.display = 'none';
+			frame.classList.remove('is-active');
+		}
+
+		if (supportsHover) {
+			frame.addEventListener('mouseenter', show);
+			frame.addEventListener('mousemove', function(e){ move(e.clientX, e.clientY); });
+			frame.addEventListener('mouseleave', hide);
+		} else {
+			/* Touch behaviour (item 3): a tap opens the lens and it stays
+			   open after the finger lifts ("persistent"); dragging while
+			   still touching repositions it; tapping again near its own
+			   centre closes it. A tap far from the lens instead just
+			   moves it there, the same as the very first tap. */
+			var lensOpen = false;
+			var isDraggingThisTouch = false;
+
+			frame.addEventListener('touchstart', function(e){
+				var touch = e.touches[0];
+				var p = getPoint(touch.clientX, touch.clientY);
+
+				if (lensOpen) {
+					var lensSize = lens.offsetWidth;
+					var lensCenterX = parseFloat(lens.style.left) + lensSize/2;
+					var lensCenterY = parseFloat(lens.style.top) + lensSize/2;
+					var distance = Math.hypot(p.x - lensCenterX, p.y - lensCenterY);
+					if (distance <= lensSize/2) {
+						/* Tapped on the lens itself — close it, and ignore
+						   the rest of this touch gesture (no drag). */
+						lensOpen = false;
+						isDraggingThisTouch = false;
+						hide();
+						return;
+					}
+				}
+
+				/* Fresh open, or a tap elsewhere to jump the lens there. */
+				if (!lensOpen) show();
+				move(touch.clientX, touch.clientY);
+				lensOpen = true;
+				isDraggingThisTouch = true;
+			}, {passive:true});
+
+			frame.addEventListener('touchmove', function(e){
+				if (!isDraggingThisTouch) return;
+				move(e.touches[0].clientX, e.touches[0].clientY);
+			}, {passive:true});
+
+			frame.addEventListener('touchend', function(){
+				isDraggingThisTouch = false;
+			}, {passive:true});
+		}
+		window.addEventListener('resize', function(){ rect = null; }, {passive:true});
+	});
+
+	/* Round 7: video privacy facade.
+
+	   Turns each .video-facade button into the YouTube iframe it
+	   stands for, on click. Two deliberate design points:
+
+	     - Nothing is persisted. No cookie, no localStorage, no
+	       sessionStorage. The visitor's choice lasts exactly as long
+	       as the page does. That keeps the site's "we store nothing
+	       on your device" position literally true, which in turn is
+	       why no consent banner is needed anywhere on the site.
+
+	     - The iframe is built here rather than hidden in the markup,
+	       because a hidden iframe still loads. display:none would
+	       not stop the request to Google.
+
+	   Written as a loop over all matches so a second embed can be
+	   added later by copying the markup alone, with no JS changes. */
+	Array.prototype.forEach.call(document.querySelectorAll('.video-facade'), function(facade){
+
+		/* If the poster file is missing, drop the broken-image icon
+		   and let the button's dark background stand in. Both a live
+		   error event and an already-failed image are handled, since
+		   a cached failure can beat this listener to the punch. */
+		var thumb = facade.querySelector('.video-facade-thumb');
+		function markNoPoster(){ facade.classList.add('is-noposter'); }
+		if (thumb) {
+			thumb.addEventListener('error', markNoPoster);
+			if (thumb.complete && thumb.naturalWidth === 0) markNoPoster();
+		}
+
+		facade.addEventListener('click', function(){
+			var wrap = facade.parentNode;
+			var iframe = document.createElement('iframe');
+
+			/* autoplay=1 and playsinline=1 are already on the URL in
+			   the markup. playsinline matters on iPhones: without it
+			   iOS takes the video fullscreen the moment it starts,
+			   throwing the visitor out of the page. autoplay is a
+			   courtesy, not a guarantee — some iOS versions still
+			   require one more tap inside the player itself, which is
+			   a minor annoyance rather than a failure. */
+			iframe.src = facade.getAttribute('data-video-src');
+			iframe.title = facade.getAttribute('data-video-title') || 'YouTube video player';
+			iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+			iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+			iframe.setAttribute('allowfullscreen', '');
+
+			wrap.replaceChild(iframe, facade);
+
+			/* The button that had focus has just been removed, which
+			   would strand a keyboard user at the top of the page.
+			   Hand focus to the player instead. */
+			try { iframe.focus(); } catch (err) {}
+
+			/* The note underneath says nothing has been sent yet.
+			   That has stopped being true, so remove it. */
+			var note = wrap.nextElementSibling;
+			if (note && note.classList.contains('video-facade-note')) note.hidden = true;
+		});
+	});
+
+	/* ELIGIBILITY GATE on the Quotation Fee button.
+
+	   The service is supplied in six jurisdictions only, and in Germany
+	   and the Netherlands to business clients only. The button stays
+	   locked until the visitor has established billing country, Canadian
+	   province where relevant, contracting capacity, a VAT number where
+	   one is required, and has ticked a warranty confirming all of it.
+
+	   Fail-closed by design. The Stripe URL ships in data-href, never in
+	   href, and this script promotes it to a real href only when every
+	   answer is acceptable. If the script never runs, the button is inert
+	   and the checkout cannot be reached at all. That is the intended
+	   behaviour: nobody reaches the payment page without passing the
+	   gate, at the price of losing any sale where JavaScript is off or
+	   the script request failed. A <noscript> notice next to the button
+	   explains the situation and points those visitors at the contact
+	   form.
+
+	   Nothing is persisted and nothing is transmitted from this page. The
+	   answers exist to prevent an ineligible payment; the record that
+	   matters is the matching set of Stripe checkout fields. */
+	var payBtn = document.getElementById('payQuotationFee');
+	var gate   = document.getElementById('eligibilityGate');
+	if (payBtn && gate) {
+		var payHref   = payBtn.getAttribute('data-href');
+		var elCountry = document.getElementById('gateCountry');
+		var elProvBox = document.getElementById('gateProvinceField');
+		var elProv    = document.getElementById('gateProvince');
+		var elCap     = document.getElementById('gateCapacity');
+		var elConfBox = document.getElementById('gateConfirmWrap');
+		var elConf    = document.getElementById('gateConfirm');
+		var elConfLbl = document.getElementById('gateConfirmLabel');
+		var elMsg     = document.getElementById('gateMessage');
+
+		/* One entry per served jurisdiction. Everything the gate needs to
+		   know about a country lives here, so adding or removing one is a
+		   single-line change rather than an edit scattered through the
+		   logic below. A country absent from this table is out of scope. */
+		var SERVED = {
+			US: {name:'the United States'},
+			GB: {name:'the United Kingdom'},
+			DE: {name:'Germany',         b2bOnly:true},
+			NL: {name:'the Netherlands', b2bOnly:true},
+			CA: {name:'Canada',          provinces:true},
+			AU: {name:'Australia'}
+		};
+
+		var OUT_OF_SCOPE_MSG =
+			'This service is offered only to clients in the USA, UK, Germany, Netherlands, ' +
+			'Canada (excluding Quebec) and Australia, and in Germany and the Netherlands to ' +
+			'business clients only. I do not market to, solicit or accept standard engagements ' +
+			'from other jurisdictions. You are welcome to <a href="#contact">send an enquiry</a>, ' +
+			'but it often cannot be accepted owing to legal constraints; any engagement that is ' +
+			'would be on separate, individually negotiated terms.';
+
+		var QUEBEC_MSG =
+			'I don\'t accept clients resident or established in Quebec, Canada. Please don\'t pay. ' +
+			'Clause <a href="terms.html#b1">B1</a> of the Terms explains why, and what happens if a ' +
+			'payment reaches me anyway.';
+
+		/* Builds the sentence the visitor is asked to warrant, from the
+		   answers actually given, so the tick box says something specific
+		   rather than a generic catch-all. */
+		var warrantyText = function(code, spec){
+			var where = spec.name;
+			if (spec.provinces) where += ', in ' + elProv.options[elProv.selectedIndex].text;
+			var how = elCap.value === 'business'
+				? 'in the course of a trade, business, craft or profession'
+				: 'as a consumer, for purposes outside any trade, business, craft or profession';
+			var text = 'I confirm that I am resident or established in ' + where + ', that I am contracting ' +
+			           how + ', and that I am not resident or established in Quebec, Canada and am not paying ' +
+			           'for or on behalf of anyone who is.';
+			/* Germany and the Netherlands are supplied business-to-business
+			   only. Consumer status there is decided objectively, on the
+			   purpose of the acquisition, not on the label the buyer picks
+			   — so the tick box asks for the underlying fact (why the
+			   artwork is held) rather than only for the label. */
+			if (spec.b2bOnly) {
+				text += ' I further confirm that I hold the artwork for business, professional, ' +
+				        'institutional or investment purposes and NOT for personal enjoyment, ' +
+				        'private collecting or any other private purpose, and that I am an ' +
+				        'Unternehmer or equivalent business, professional or public institution ' +
+				        'and not a consumer.';
+			}
+			return text + ' I give this as a warranty under the Art Review Service Terms.';
+		};
+
+		/* Pure decision function: reads the current answers and returns
+		   what the gate should show. Never touches the DOM, so the rules
+		   stay readable and the rendering stays in one place. */
+		var evaluate = function(){
+			var code = elCountry.value;
+			if (!code) return {};                       // nothing chosen yet
+			var spec = SERVED[code];
+			if (!spec) return {msg:OUT_OF_SCOPE_MSG};   // "None of these"
+
+			if (spec.provinces) {
+				if (!elProv.value) return {province:true};
+				if (elProv.value === 'QC') return {province:true, msg:QUEBEC_MSG};
+			}
+			if (!elCap.value) return {province:!!spec.provinces};
+
+			var base = {province:!!spec.provinces};
+			if (spec.b2bOnly && elCap.value === 'consumer') {
+				base.msg = 'In ' + spec.name + ' this service is offered to business clients only. ' +
+				           'I cannot accept a consumer engagement there on any terms. If you are buying ' +
+				           'for a trade, business or profession, choose the business option above. Please also ' +
+				           'enter your VAT identification number at the Stripe checkout if you can — it is ' +
+				           'optional there, but supplying it speeds things up. If you do not, I will ask for ' +
+				           'it by email, and I verify it before starting work either way.';
+				return base;
+			}
+			base.warranty = warrantyText(code, spec);
+			return base;
+		};
+
+		/* Remembers the last warranty sentence shown, so that changing an
+		   answer invalidates a tick given against the previous wording
+		   instead of silently carrying it over. */
+		var lastWarranty = '';
+
+		var render = function(){
+			var state = evaluate();
+
+			elProvBox.hidden = !state.province;
+
+			if (state.warranty) {
+				if (state.warranty !== lastWarranty) {
+					elConf.checked = false;
+					elConfLbl.textContent = state.warranty;
+					lastWarranty = state.warranty;
+				}
+				elConfBox.hidden = false;
+			} else {
+				elConfBox.hidden = true;
+				elConf.checked = false;
+				lastWarranty = '';
+			}
+
+			if (state.msg) {
+				elMsg.innerHTML = state.msg;
+				elMsg.hidden = false;
+			} else {
+				elMsg.hidden = true;
+				elMsg.textContent = '';
+			}
+
+			var unlocked = !!state.warranty && elConf.checked;
+			payBtn.classList.toggle('is-locked', !unlocked);
+			payBtn.setAttribute('aria-disabled', unlocked ? 'false' : 'true');
+			/* Removing the href, rather than only cancelling the click,
+			   also takes the locked button out of the tab order and stops
+			   the browser offering "open link in new tab" on it. */
+			if (unlocked) payBtn.setAttribute('href', payHref);
+			else payBtn.removeAttribute('href');
+		};
+
+		/* One listener per control, all running the same render. Browsers
+		   restore previous form state on reload and back-navigation
+		   (bfcache), so render() is called once up front against whatever
+		   the fields actually contain rather than assuming they are empty. */
+		[elCountry, elProv, elCap, elConf].forEach(function(el){
+			el.addEventListener('change', render);
+		});
+		render();
+
+		/* Belt and braces: an anchor with no href still fires click, so
+		   send focus to the first unanswered control rather than appearing
+		   to do nothing. */
+		payBtn.addEventListener('click', function(e){
+			if (payBtn.classList.contains('is-locked')) {
+				e.preventDefault();
+				var next = !elCountry.value ? elCountry
+				         : (!elProvBox.hidden && !elProv.value) ? elProv
+				         : !elCap.value ? elCap
+				         : !elConfBox.hidden ? elConf
+				         : elCountry;
+				next.focus();
+			}
+		});
+	}
+
+})();
+</script>
+
+</body>
+</html>
