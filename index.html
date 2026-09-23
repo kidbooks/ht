@@ -71,6 +71,18 @@
 .case-card{max-width:640px;background:rgba(27,23,18,0.55);border:1px solid var(--line-dark);border-radius:var(--radius);padding:clamp(1.8rem,4vw,3rem);position:relative;}
 .case-card p{color:rgba(239,230,211,0.86);}
 .case-card h2{color:var(--parchment);}
+/* The About section's card sits on the right at desktop widths, for
+   variation against the Book section's card right below it (which
+   stays left) -- and the background gradient is mirrored to match,
+   so the card's text still sits over the darkened side of the photo
+   rather than the lighter, more-transparent side. Left alone below
+   761px (this site's existing mobile/desktop threshold, matched here
+   rather than inventing a new one): both case-cards are effectively
+   full-width and stacked regardless, so left/right has nothing to vary. */
+@media (min-width:761px){
+	#one .case-card{margin-left:auto;}
+	#one.photo-section::before{background:linear-gradient(260deg,rgba(27,23,18,.92) 0%,rgba(27,23,18,.78) 40%,rgba(27,23,18,.42) 100%);}
+}
 .case-links{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;margin-top:1.3rem;padding-top:1.3rem;border-top:1px solid var(--line-dark);}
 .case-links a{font-family:var(--font-mono);font-size:.82rem;text-decoration:underline;text-underline-offset:3px;color:var(--gold-light);}
 .book-cover{width:150px;box-shadow:var(--shadow);border:6px solid var(--white);float:right;margin:0 0 1.2rem 1.4rem;transform:rotate(2deg);}
@@ -611,7 +623,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 
 			<div class="price-note reveal">
 				<b>Two separate payments, two separate steps.</b> The <strong>Quotation Fee</strong> (US$99, approximately A$139) is what gets the process started and buys you a custom quote. The <strong>Art Review</strong> itself is quoted individually for your piece and starts at US$30,000 — see <a href="#fee_estimate">example fees below</a>. Both are total amounts payable. No Australian GST is presently charged on any fee, wherever you are. Prices will not change when I register for GST, but the price shown will include it for Australian clients.
-				<p style="margin-top:.8rem;font-size:.9em;">Australian dollar figures shown on this page are approximate, converted at an indicative rate of 1 USD = 1.4049 AUD (updated 20 September 2026). This is an estimate only. The amount actually debited will be set by your bank or payment provider at their rate on the day and may include foreign exchange margins and international transaction fees. The contractual price is the US dollar amount. Rates supplied by ExchangeRate-API.</p>
+				<p style="margin-top:.8rem;font-size:.9em;">Australian dollar figures shown on this page are approximate, converted at an indicative rate of 1 USD = 1.4064 AUD (updated 23 September 2026). This is an estimate only. The amount actually debited will be set by your bank or payment provider at their rate on the day and may include foreign exchange margins and international transaction fees. The contractual price is the US dollar amount. Rates supplied by ExchangeRate-API.</p>
 			</div>
 
 			<div class="steps reveal">
@@ -630,7 +642,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 				<div class="step">
 					<div class="step-num">03</div>
 					<h4>Get your custom quote</h4>
-					<p>Within ten business days of receiving enough material to price the work, I'll be in touch with the precise fee and the number of hours it covers. Anything you send me as part of an Art Review is seen only by me.</p>
+					<p>Within ten business days of receiving enough material to price the work, I'll be in touch with the precise fee and the number of hours it covers. Anything you send me as part of an Art Review is seen only by me — see <a href="terms.html#b13">clause B13</a> for how that stays true.</p>
 				</div>
 				<div class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
 				<div class="step">
@@ -738,7 +750,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 
 			<p class="text-columns reveal"><b>How the fee is calculated.</b> Your quote states an hourly rate and the total number of examination hours it buys, organised into review passes. The fee is the rate multiplied by the hours. I keep a contemporaneous time record and give it to you with your report. <b>You are paying for those hours of examination, not for a result</b>. If these hours produce no findings, the report says so and the engagement has been performed in full, with no refunds permitted on this basis. I don't give verbal findings, and anything said before the report lands is preliminary. If a piece warrants more hours than we agreed, I may suggest additional ones, but no extra hour is worked or charged unless you agree in writing and pay for it first, and you are never obliged to accept the suggestion.</p>
 
-			<p class="text-columns reveal">Each figure below is the total amount payable. I am not currently registered for Australian GST, so no GST is charged on any fee, wherever you are. If I become registered, the price will not change, but the price shown to Australian clients will include GST and prices to clients outside Australia will be unaffected. Australian dollar figures are approximate, converted at an indicative rate of 1 USD = 1.4049 AUD (updated 20 September 2026); the amount actually debited is set by your bank at its rate on the day and may include FX margins and international transaction fees. The contractual price is the US dollar amount. Bank charges, telegraphic transfer fees and currency conversion costs are borne by the client.</p>
+			<p class="text-columns reveal">Each figure below is the total amount payable. I am not currently registered for Australian GST, so no GST is charged on any fee, wherever you are. If I become registered, the price will not change, but the price shown to Australian clients will include GST and prices to clients outside Australia will be unaffected. Australian dollar figures are approximate, converted at an indicative rate of 1 USD = 1.4064 AUD (updated 23 September 2026); the amount actually debited is set by your bank at its rate on the day and may include FX margins and international transaction fees. The contractual price is the US dollar amount. Bank charges, telegraphic transfer fees and currency conversion costs are borne by the client.</p>
 
 			<p><strong>Tap any image below to view it in full screen mode</strong>.</p>
 
@@ -750,7 +762,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					<div class="exhibit-body">
 						<span class="exhibit-tag2">Exhibit A — Limited detail</span>
 						<div class="exhibit-price">US$30,000</div>
-						<div class="exhibit-aud">approx. A$42,148</div>
+						<div class="exhibit-aud">approx. A$42,192</div>
 						<div class="exhibit-turn">~2 weeks turnaround</div>
 					</div>
 				</div>
@@ -761,7 +773,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					<div class="exhibit-body">
 						<span class="exhibit-tag2">Exhibit B — Moderate detail</span>
 						<div class="exhibit-price">US$70,000</div>
-						<div class="exhibit-aud">approx. A$98,345</div>
+						<div class="exhibit-aud">approx. A$98,447</div>
 						<div class="exhibit-turn">~4 weeks turnaround</div>
 					</div>
 				</div>
@@ -772,7 +784,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					<div class="exhibit-body">
 						<span class="exhibit-tag2">Exhibit C — Rich detail</span>
 						<div class="exhibit-price">US$180,000</div>
-						<div class="exhibit-aud">approx. A$252,886</div>
+						<div class="exhibit-aud">approx. A$253,150</div>
 						<div class="exhibit-turn">~6 weeks turnaround</div>
 					</div>
 				</div>
@@ -783,7 +795,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					<div class="exhibit-body">
 						<span class="exhibit-tag2">Exhibit D — Intricate detail</span>
 						<div class="exhibit-price">US$350,000</div>
-						<div class="exhibit-aud">approx. A$491,723</div>
+						<div class="exhibit-aud">approx. A$492,237</div>
 						<div class="exhibit-turn">~9 weeks turnaround</div>
 					</div>
 				</div>
@@ -861,6 +873,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					<p class="lede" style="font-size:1.05rem;">Have a general question that isn't answered <a href="#faq">in the FAQ below</a>? Send it here.</p>
 					<p class="note-callout">This form is for general enquiries only. If you're asking about pricing or requesting a quote, please use the <a href="#work">Quotation Fee</a> button above instead — pricing questions sent through this form won't usually receive a reply.</p>
 					<p class="note-callout">I supply this service in six places only: the USA, the UK, Germany, the Netherlands, Canada excluding Quebec, and Australia, as well as to business clients in Germany and the Netherlands. You are welcome to enquire about a bespoke arrangement from outside these jurisdictions.</p>
+					<p class="note-callout">This form isn't a confidential channel, and neither is emailing me directly — both may, in future, be seen by a staff member. If confidentiality matters to you, begin with a <a href="#work">Quotation Request</a> instead: that's what reaches me personally, and brings the confidentiality guarantee in <a href="terms.html#b13">clause B13</a> of the Terms with it.</p>
 					<p style="font-size:.9rem;">NOTE: A bespoke agreement will not often be possible. The obstacles are legal rather than commercial — consumer, tax, language, and data-protection rules that a one-person business working in English cannot meet in every country. Most of what makes an unlisted country difficult is its consumer-protection laws, which do not apply where the client is contracting for a trade, business or profession. <b>If you are enquiring on behalf of a gallery, dealership, auction house, insurer, fund or other business, please say so and provide your registration or VAT number</b>.</p>
 				</div>
 				<div class="form-card">
