@@ -82,6 +82,16 @@
 @media (min-width:761px){
 	#one .case-card{margin-left:auto;}
 	#one.photo-section::before{background:linear-gradient(260deg,rgba(27,23,18,.92) 0%,rgba(27,23,18,.78) 40%,rgba(27,23,18,.42) 100%);}
+	/* .eyebrow is display:inline-flex (see hunch-theme.css), so it's an
+	   inline-level box that sits at the start of the block flow by
+	   default -- margin-left:auto does nothing useful on an inline box.
+	   Switching it to a block-level flex container here lets the same
+	   max-width + margin-left:auto trick used on the card above apply
+	   to it too, so its content (still left-aligned within itself, via
+	   the same align-items:center it already had) starts exactly where
+	   the card's left edge now is, instead of staying at the wrap's
+	   left edge where the card no longer is. */
+	#one .eyebrow{display:flex;max-width:640px;margin-left:auto;}
 }
 .case-links{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;margin-top:1.3rem;padding-top:1.3rem;border-top:1px solid var(--line-dark);}
 .case-links a{font-family:var(--font-mono);font-size:.82rem;text-decoration:underline;text-underline-offset:3px;color:var(--gold-light);}
@@ -623,7 +633,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 
 			<div class="price-note reveal">
 				<b>Two separate payments, two separate steps.</b> The <strong>Quotation Fee</strong> (US$99, approximately A$139) is what gets the process started and buys you a custom quote. The <strong>Art Review</strong> itself is quoted individually for your piece and starts at US$30,000 — see <a href="#fee_estimate">example fees below</a>. Both are total amounts payable. No Australian GST is presently charged on any fee, wherever you are. Prices will not change when I register for GST, but the price shown will include it for Australian clients.
-				<p style="margin-top:.8rem;font-size:.9em;">Australian dollar figures shown on this page are approximate, converted at an indicative rate of 1 USD = 1.4064 AUD (updated 23 September 2026). This is an estimate only. The amount actually debited will be set by your bank or payment provider at their rate on the day and may include foreign exchange margins and international transaction fees. The contractual price is the US dollar amount. Rates supplied by ExchangeRate-API.</p>
+				<p style="margin-top:.8rem;font-size:.9em;">Australian dollar figures shown on this page are approximate, converted at an indicative rate of 1 USD = 1.4049 AUD (updated 20 September 2026). This is an estimate only. The amount actually debited will be set by your bank or payment provider at their rate on the day and may include foreign exchange margins and international transaction fees. The contractual price is the US dollar amount. Rates supplied by ExchangeRate-API.</p>
 			</div>
 
 			<div class="steps reveal">
@@ -750,7 +760,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 
 			<p class="text-columns reveal"><b>How the fee is calculated.</b> Your quote states an hourly rate and the total number of examination hours it buys, organised into review passes. The fee is the rate multiplied by the hours. I keep a contemporaneous time record and give it to you with your report. <b>You are paying for those hours of examination, not for a result</b>. If these hours produce no findings, the report says so and the engagement has been performed in full, with no refunds permitted on this basis. I don't give verbal findings, and anything said before the report lands is preliminary. If a piece warrants more hours than we agreed, I may suggest additional ones, but no extra hour is worked or charged unless you agree in writing and pay for it first, and you are never obliged to accept the suggestion.</p>
 
-			<p class="text-columns reveal">Each figure below is the total amount payable. I am not currently registered for Australian GST, so no GST is charged on any fee, wherever you are. If I become registered, the price will not change, but the price shown to Australian clients will include GST and prices to clients outside Australia will be unaffected. Australian dollar figures are approximate, converted at an indicative rate of 1 USD = 1.4064 AUD (updated 23 September 2026); the amount actually debited is set by your bank at its rate on the day and may include FX margins and international transaction fees. The contractual price is the US dollar amount. Bank charges, telegraphic transfer fees and currency conversion costs are borne by the client.</p>
+			<p class="text-columns reveal">Each figure below is the total amount payable. I am not currently registered for Australian GST, so no GST is charged on any fee, wherever you are. If I become registered, the price will not change, but the price shown to Australian clients will include GST and prices to clients outside Australia will be unaffected. Australian dollar figures are approximate, converted at an indicative rate of 1 USD = 1.4049 AUD (updated 20 September 2026); the amount actually debited is set by your bank at its rate on the day and may include FX margins and international transaction fees. The contractual price is the US dollar amount. Bank charges, telegraphic transfer fees and currency conversion costs are borne by the client.</p>
 
 			<p><strong>Tap any image below to view it in full screen mode</strong>.</p>
 
@@ -762,7 +772,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					<div class="exhibit-body">
 						<span class="exhibit-tag2">Exhibit A — Limited detail</span>
 						<div class="exhibit-price">US$30,000</div>
-						<div class="exhibit-aud">approx. A$42,192</div>
+						<div class="exhibit-aud">approx. A$42,148</div>
 						<div class="exhibit-turn">~2 weeks turnaround</div>
 					</div>
 				</div>
@@ -773,7 +783,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					<div class="exhibit-body">
 						<span class="exhibit-tag2">Exhibit B — Moderate detail</span>
 						<div class="exhibit-price">US$70,000</div>
-						<div class="exhibit-aud">approx. A$98,447</div>
+						<div class="exhibit-aud">approx. A$98,345</div>
 						<div class="exhibit-turn">~4 weeks turnaround</div>
 					</div>
 				</div>
@@ -784,7 +794,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					<div class="exhibit-body">
 						<span class="exhibit-tag2">Exhibit C — Rich detail</span>
 						<div class="exhibit-price">US$180,000</div>
-						<div class="exhibit-aud">approx. A$253,150</div>
+						<div class="exhibit-aud">approx. A$252,886</div>
 						<div class="exhibit-turn">~6 weeks turnaround</div>
 					</div>
 				</div>
@@ -795,7 +805,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					<div class="exhibit-body">
 						<span class="exhibit-tag2">Exhibit D — Intricate detail</span>
 						<div class="exhibit-price">US$350,000</div>
-						<div class="exhibit-aud">approx. A$492,237</div>
+						<div class="exhibit-aud">approx. A$491,723</div>
 						<div class="exhibit-turn">~9 weeks turnaround</div>
 					</div>
 				</div>
@@ -948,7 +958,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 				<details class="faq-item" id="refunds">
 					<summary>Is the US$99 Quotation Fee ever refunded?</summary>
 					<div class="faq-body">
-						<p>Yes, in a number of situations, all set out in <a href="terms.html#b4">clause B4 of the Terms</a> — that clause is the complete list, and it governs. In summary: if I decline to quote or decline the job on any of the grounds listed there; if your artwork turns out to be one I have already analysed — on the <a href="schedule.html">Schedule of Prior Analysis</a>, in my picture book, or covered on my YouTube channel or other public channels — and you'd rather not go ahead without the usual confidentiality; if I can't lawfully deal with you; if I don't get a quote to you within ten business days of receiving enough material to price the work; if you change your mind within 14 days and haven't yet sent me anything about the artwork; if you turn out to have been in Quebec when you paid; if I have already carried out an Art Review of the same artwork for another client, so that clause <a href="terms.html#b30">B30</a> requires me to decline; or if you are a consumer resident or established in Germany or the Netherlands, where I supply business clients only. In each case you get the whole US$99 back.</p>
+						<p>Yes, in a number of situations, all set out in <a href="terms.html#b4">clause B4 of the Terms</a> — that clause is the complete list, and it governs. In summary: if I decline to quote or decline the job on any of the grounds listed there — including if, after you've paid but before I've quoted, you tell me in writing about a risk of unusually high consequential loss that I'm not willing to accept; if your artwork turns out to be one I have already analysed — on the <a href="schedule.html">Schedule of Prior Analysis</a>, in my picture book, or covered on my YouTube channel or other public channels — and you'd rather not go ahead without the usual confidentiality; if I can't lawfully deal with you; if I don't get a quote to you within ten business days of receiving enough material to price the work; if you change your mind within 14 days and haven't yet sent me anything about the artwork; if you turn out to have been in Quebec when you paid; if I have already carried out an Art Review of the same artwork for another client, so that clause <a href="terms.html#b30">B30</a> requires me to decline; or if you are a consumer resident or established in Germany or the Netherlands, where I supply business clients only. In each case you get the whole US$99 back.</p>
 						<p><b>Consumers in the UK</b> have a separate statutory right to cancel within 14 days without giving any reason, whether or not one of the above applies. If you asked me to start work during those 14 days and then cancel, you pay only for the hours actually worked; otherwise you get a full refund. <b>Consumers in Canada</b> have cancellation rights under provincial law, described in clause B26. Germany and the Netherlands are business-only, so no consumer cancellation right arises there.</p>
 						<p>What it doesn't cover is simply deciding not to proceed once you've seen the quote, or the quoted number being higher than you'd hoped. Pricing your piece is real work and it gets done either way. Nothing here limits any right you have under the Australian Consumer Law or the consumer law of your own country. Clause B4 of the <a href="terms.html">Terms</a> sets this out in full.</p>
 					</div>
@@ -1016,6 +1026,36 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					<summary>What rules govern the use of this site and the services you offer?</summary>
 					<div class="faq-body">
 						<p>Use of this site is subject to our <a href="terms.html">Website Terms of Use</a>. Collection and use of personal information is subject to our <a href="privacy.html">Privacy Policy</a>.</p>
+					</div>
+				</details>
+				<details class="faq-item" id="factory-seconds-diff">
+					<summary>What's the difference between a standard hardcover copy and a Factory Seconds copy?</summary>
+					<div class="faq-body">
+						<p>The book itself — same ISBN, same edition, same content. The only difference is cosmetic condition: a Factory Seconds copy is new stock affected by one or more minor cosmetic defects, sold at a reduced price because of that. See clause <a href="terms.html#c5a">C5A</a> of the Terms.</p>
+					</div>
+				</details>
+				<details class="faq-item" id="factory-seconds-defects">
+					<summary>What kind of defects do Factory Seconds copies have?</summary>
+					<div class="faq-body">
+						<p>Cosmetic ones: ink smears or smudges on interior pages, minor binding defects, warped or skewed covers, creased or folded pages, or other similarly minor defects. Clause <a href="terms.html#c5a">C5A</a> of the Terms sets this out in full, and it's what governs — this FAQ is a summary of it, not a substitute for it.</p>
+					</div>
+				</details>
+				<details class="faq-item" id="factory-seconds-used">
+					<summary>Is a Factory Seconds copy a used or previously-owned book?</summary>
+					<div class="faq-body">
+						<p>No. It's new stock that has never been sold or owned by anyone else — the reduced price is for the cosmetic condition described above, not for prior use. See clause <a href="terms.html#c5a">C5A</a>.</p>
+					</div>
+				</details>
+				<details class="faq-item" id="factory-seconds-warranty">
+					<summary>Does the warranty against defects still apply to a Factory Seconds copy?</summary>
+					<div class="faq-body">
+						<p>Yes, for anything beyond the cosmetic defect types disclosed above — those specific defects are disclosed to you before you pay, so they're not something you can make a warranty claim about, and on their own they don't mean the copy fails to meet the consumer guarantee of acceptable quality. A different kind of defect (missing, duplicated, misprinted or out-of-order pages, mould damage, a binding failure beyond ordinary warping, or a defect more serious than what was disclosed) is still covered in full, the same as any other copy. See clause <a href="terms.html#c5a">C5A</a>, which narrows clause <a href="terms.html#c12">C12</a> only in this specific way, and clause <a href="terms.html#c14">C14</a> for the consumer guarantee itself.</p>
+					</div>
+				</details>
+				<details class="faq-item" id="factory-seconds-quantity">
+					<summary>How many Factory Seconds copies are available?</summary>
+					<div class="faq-body">
+						<p>Far fewer than standard copies — I only set aside stock affected by a defect of the kind described above, and I don't state the exact number since it changes as stock is sold. When they're gone, they're gone until more turn up. See clause <a href="terms.html#c5a">C5A</a>.</p>
 					</div>
 				</details>
 			</div>
