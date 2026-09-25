@@ -38,7 +38,7 @@
 	// Replace with your real API Gateway invoke URL once Step 6 of the
 	// AWS setup guide is done. Left blank for now so nothing is sent
 	// (and nothing errors) until it's filled in.
-	var ENDPOINT = "";
+	var ENDPOINT = "https://5ed1e2x0oi.execute-api.ap-southeast-2.amazonaws.com/log";
 	if (!ENDPOINT) { return; }
 
 	// --- Check 1: navigator.webdriver ----------------------------------
