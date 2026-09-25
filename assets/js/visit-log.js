@@ -1,16 +1,27 @@
 /*
 	VISIT LOGGER
 	============
-	Sends a small, anonymous record of this page view to our own AWS
-	endpoint, so we can see which pages get visited and which posted
-	link (query-string tag) brought the visitor here.
+	Sends a small record of this page view to our own AWS endpoint, so
+	we can see which pages get visited, which posted link (query-string
+	tag) brought the visitor here, and -- the reason this now includes
+	the visitor's IP address -- investigate abuse (traffic spikes, bad
+	status codes, automated attacks) if it happens. See privacy.html
+	section 2 for what visitors are told, and the Data Protection
+	Pack's Legitimate Interests Assessment for the legal basis. Every
+	record is deleted automatically after a fixed number of days (see
+	RETENTION_DAYS in the Lambda function) -- it is not kept indefinitely.
 
-	What this deliberately does NOT collect: no IP address, no cookie,
-	no device fingerprint, no name, nothing that identifies a person.
-	The only things sent are:
+	This script itself sends only:
 	  - page  : the page path, e.g. "/index.html"
 	  - ts    : the UTC timestamp of the view
 	  - src   : the "src" tag from the URL, if any, e.g. "?src=yt"
+	  - ref   : document.referrer -- the page that linked here, if any
+
+	The IP address and User-Agent are NOT sent by this script -- they
+	are read by the Lambda function directly from the request itself
+	(the caller's address, and the standard User-Agent header every
+	browser already sends on every request), so there is nothing extra
+	to add to the payload for those two.
 
 	Three IP-free checks run first to skip the most obvious browser
 	automation before anything is sent. These are a soft, best-effort
@@ -44,19 +55,26 @@
 	if (!window.innerWidth || !window.innerHeight) { return; }
 
 	// --- Check 3: obvious bot/crawler User-Agent strings ------------------
-	// Read locally, checked locally, and never sent anywhere — the User-
-	// Agent string itself is not part of the payload below, so this adds
-	// no data collection at all, just a local decision not to send.
+	// Checked locally, against this same string. Note this is a separate
+	// use from the User-Agent header the browser attaches to the request
+	// below automatically (and which the Lambda function now reads and
+	// stores) — this check just decides locally whether to send at all;
+	// it doesn't add navigator.userAgent to the JSON payload itself.
 	if (/bot|crawl|spider|headless|curl|wget|python|scrapy|phantomjs/i.test(navigator.userAgent)) {
 		return;
 	}
 
 	// --- Build the payload -----------------------------------------------
+	// document.referrer is the one field genuinely only available here —
+	// unlike the IP address and User-Agent, there is no equivalent to
+	// read on the server side: the HTTP Referer header on THIS request
+	// would just show the current page, not the page that led here.
 	var params = new URLSearchParams(window.location.search);
 	var payload = {
 		page: window.location.pathname,
 		ts: new Date().toISOString(),
-		src: params.get("src") || ""
+		src: params.get("src") || "",
+		ref: document.referrer || ""
 	};
 
 	// A Blob with an explicit content type, rather than a plain object —
