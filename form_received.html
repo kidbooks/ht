@@ -84,10 +84,12 @@
 </footer>
 
 <!--
-	Anonymous visit logger — page path, timestamp and referral-source
-	tag only, no IP address, no cookie. See assets/js/visit-log.js for
-	exactly what it does and does not send, and privacy.html section 2
-	for the disclosure this corresponds to.
+	Page-view and security logger — page path, timestamp, referral-source
+	tag, referring page, IP address and User-Agent. The IP address and
+	User-Agent are read by the Lambda function from the request itself,
+	not sent by this script. See assets/js/visit-log.js for exactly what
+	it sends, and privacy.html section 2 for the disclosure this
+	corresponds to. Deleted automatically 180 days after being written.
 -->
 <script src="assets/js/visit-log.js"></script>
 
