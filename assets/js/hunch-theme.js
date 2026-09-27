@@ -69,6 +69,11 @@
 	var OverlayHistory = (function(){
 		var current = null;   /* the overlay on screen right now, if any */
 		var owned = false;    /* is one of our entries on the stack?     */
+		/* Where focus was left when an overlay closed by its own UI. Giving
+		   our history entry back (history.back() below) is a history
+		   traversal, and on a page whose address ends in #something Chrome
+		   drops focus to <body> during it — so it is put back afterwards. */
+		var refocusAfterPop = null;
 
 		function open(overlay){
 			/* Something else already showing? Close it, but keep its
@@ -102,6 +107,7 @@
 			setTimeout(function(){
 				if (current || !owned) return;
 				owned = false;
+				refocusAfterPop = document.activeElement;
 				history.back();
 			}, 0);
 		}
@@ -128,6 +134,13 @@
 				var overlay = current;
 				current = null;
 				overlay.close();
+			}
+			var el = refocusAfterPop;
+			refocusAfterPop = null;
+			if (el && el !== document.body) {
+				setTimeout(function(){
+					if (document.body.contains(el) && document.activeElement !== el) el.focus({preventScroll: true});
+				}, 0);
 			}
 		});
 
@@ -347,28 +360,50 @@
 	   Any element with class "enlarge" and a data-full (plus optional
 	   data-alt) attribute opens the #lightbox element, if the page
 	   includes one. Back-button handling comes from OverlayHistory.
+
+	   Keyboard and screen-reader behaviour (27 September 2026): the
+	   lightbox is marked up as a modal dialog, so opening it moves focus
+	   to its close button, Tab cannot wander off into the page hidden
+	   behind it, and closing it — by any route, including Escape and the
+	   Back button — returns focus to whatever opened it.
 	============================================================ */
 	var lightbox = document.getElementById('lightbox');
 	if (lightbox) {
 		var lightboxImg = document.getElementById('lightboxImg');
 		var lightboxClose = document.getElementById('lightboxClose');
+		var lightboxOpener = null;   /* the element to hand focus back to */
 
 		var lightboxOverlay = {
 			close: function(){
 				lightbox.classList.remove('is-open');
 				lightbox.setAttribute('aria-hidden', 'true');
-				lightboxImg.src = '';
+				/* removeAttribute rather than src = '': an empty src is
+				   still an image request in some older browsers. */
+				lightboxImg.removeAttribute('src');
+				if (lightboxOpener && document.body.contains(lightboxOpener)) lightboxOpener.focus();
+				lightboxOpener = null;
 			}
 		};
 
 		document.querySelectorAll('.enlarge').forEach(function(el){
 			el.addEventListener('click', function(){
+				lightboxOpener = el;
 				lightboxImg.src = el.dataset.full;
 				lightboxImg.alt = el.dataset.alt || '';
 				lightbox.classList.add('is-open');
 				lightbox.setAttribute('aria-hidden', 'false');
 				OverlayHistory.open(lightboxOverlay);
+				if (lightboxClose) lightboxClose.focus();
 			});
+		});
+
+		/* The close button is the only control inside the dialog, so Tab
+		   and Shift+Tab simply stay on it while the dialog is open. */
+		lightbox.addEventListener('keydown', function(e){
+			if (e.key === 'Tab' && lightboxClose) {
+				e.preventDefault();
+				lightboxClose.focus();
+			}
 		});
 
 		if (lightboxClose) {
