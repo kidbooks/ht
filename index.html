@@ -135,7 +135,12 @@
 }
 .proof-item figcaption{margin-top:.9rem;font-size:.92rem;color:var(--ink-soft);}
 .proof-item .exhibit-tag{display:block;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--oxblood);margin-bottom:.35em;}
-.loupe-frame{position:relative;overflow:hidden;border:9px solid var(--ink);border-radius:2px;box-shadow:var(--shadow);background:#000;touch-action:none;}
+.loupe-frame{position:relative;overflow:hidden;border:9px solid var(--ink);border-radius:2px;box-shadow:var(--shadow);background:#000;}
+/* Only a frame with a working zoom lens (.loupe-active) captures touch
+   gestures. On any other frame (Exhibit Two has no lens) a finger must
+   still scroll the page — touch-action:none there used to trap phone
+   visitors on a picture that fills half their screen. */
+.loupe-frame.loupe-active{touch-action:none;}
 .loupe-frame img{width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none;}
 .loupe-active:hover{cursor:none;}
 @media (hover:none){ .loupe-frame:hover{cursor:default;} }
@@ -253,13 +258,15 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
    stacks the two columns deliberately (see the media query lower down),
    so this only governs the desktop case. */
 .cta-copy{flex:1 1 320px;min-width:0;}
-/* flex-shrink stays on (unlike a flat 0 0 auto) and min-width:0 lets the
-   box itself shrink below its natural ~436px on narrow viewports — the
-   button's own white-space:nowrap stops its text from wrapping, so the
-   floor is the button's width, not the column's. Without this, cta-buy
-   held its full desktop width below 640px and ran off the right edge of
-   the screen on a phone. */
-.cta-buy{flex:0 1 auto;min-width:0;text-align:right;}
+/* 27 September 2026: the payment button has moved out of this column to
+   the end of the eligibility gate (see .cta-pay), so the column now holds
+   only the price and two short notes. Without the button's nowrap width to
+   size it, "auto" would stretch the column to its longest sentence and push
+   it onto a row of its own; a 24rem basis keeps it beside the text column
+   on desktop and lets it stack underneath on phones. Its small print is
+   left-aligned: several lines of right-aligned text read as ragged, on
+   phones especially. */
+.cta-buy{flex:0 1 24rem;min-width:0;}
 /* Item 5: on the smallest phone screens there isn't quite enough room for
    the button's full label plus arrow glyph on one line at full size, which
    otherwise wraps the arrow onto its own line and inflates the box height.
@@ -380,7 +387,17 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 .cta-gate-msg a{color:var(--gold-light);}
 /* Shown only when JavaScript is unavailable, in place of a button that
    deliberately cannot work without it. */
-.cta-noscript{font-size:.82rem;line-height:1.55;margin:.7rem 0 0;text-align:left;color:rgba(239,230,211,0.85);}
+/* ---------- Payment row, after the gate ----------
+   The button used to sit in the price column above the gate, so a
+   visitor answered the questions and then had to scroll back up to
+   pay. It now comes last, in reading order: questions, tick box,
+   button. The status line beside it says what is still needed, and
+   turns gold once the button is live. order:4 keeps it after the gate
+   (order:3) on every screen width. */
+.cta-pay{flex:1 1 100%;order:4;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:.7rem 1.3rem;}
+.cta-pay-status{font-size:.82rem;line-height:1.5;margin:0;color:var(--oxblood-bright);}
+.cta-pay-status.is-ready{color:var(--gold-light);}
+.cta-noscript{flex-basis:100%;font-size:.82rem;line-height:1.55;margin:0;text-align:left;color:rgba(239,230,211,0.85);}
 .cta-noscript a{color:var(--gold-light);}
 @media (max-width:640px){
 	.cta-gate-field{flex-basis:100%;}
@@ -458,6 +475,11 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 .faq-toggle-all{font-size:.72rem;padding:.6em 1.2em;}
 
 .faq-list{border-top:1px solid var(--line);}
+/* FAQ questions are grouped by theme. Each group heading sits on the
+   list's own dividing lines, so the list still reads as one column of
+   rules with a small label above each run of questions. */
+.faq-group{font-family:var(--font-mono);font-size:.74rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--oxblood);margin:2.2rem 0 0;padding-bottom:.7rem;border-bottom:1px solid var(--line);}
+.faq-group:first-child{margin-top:1.2rem;}
 .faq-item{border-bottom:1px solid var(--line);}
 .faq-item summary{cursor:pointer;list-style:none;padding:1.3rem 0;font-family:var(--font-display);font-size:1.08rem;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center;gap:1rem;}
 .faq-item summary::-webkit-details-marker{display:none;}
@@ -633,7 +655,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 
 			<div class="price-note reveal">
 				<b>Two separate payments, two separate steps.</b> The <strong>Quotation Fee</strong> (US$99, approximately A$141) is what gets the process started and buys you a custom quote. The <strong>Art Review</strong> itself is quoted individually for your piece and starts at US$30,000 — see <a href="#fee_estimate">example fees below</a>. Both are total amounts payable. No Australian GST is presently charged on any fee, wherever you are. Prices will not change when I register for GST, but the price shown will include it for Australian clients.
-				<p style="margin-top:.8rem;font-size:.9em;">Australian dollar figures shown on this page are approximate, converted at an indicative rate of 1 USD = 1.4255 AUD (updated 25 September 2026). This is an estimate only. The amount actually debited will be set by your bank or payment provider at their rate on the day and may include foreign exchange margins and international transaction fees. The contractual price is the US dollar amount. Rates supplied by ExchangeRate-API.</p>
+				<p style="margin-top:.8rem;font-size:.9em;">Australian dollar figures shown on this page are approximate, converted at an indicative rate of 1 USD = 1.4235 AUD (updated 28 September 2026). This is an estimate only. The amount actually debited will be set by your bank or payment provider at their rate on the day and may include foreign exchange margins and international transaction fees. The contractual price is the US dollar amount. Rates supplied by ExchangeRate-API.</p>
 			</div>
 
 			<div class="steps reveal">
@@ -646,19 +668,19 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 				<div class="step">
 					<div class="step-num">02</div>
 					<h4>Tell me about your piece</h4>
-					<p>I'll ask you to send me a few digital photos — from several angles if it's a sculpture.</p>
+					<p>After you pay, I'll email you personally from my own address. Reply only to that address with a few digital photos — from several angles if it's a sculpture. It's the only confidential channel.</p>
 				</div>
 				<div class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
 				<div class="step">
 					<div class="step-num">03</div>
 					<h4>Get your custom quote</h4>
-					<p>Within ten business days of receiving enough material to price the work, I'll be in touch with the precise fee and the number of hours it covers. Anything you send me as part of an Art Review is seen only by me — see <a href="terms.html#b13">clause B13</a> for how that stays true.</p>
+					<p>Within ten business days of receiving enough material to price the work, I'll be in touch with the precise fee and the number of hours it covers. Anything you send to my address is seen only by me — see <a href="terms.html#b13">clause B13</a> for how that stays true.</p>
 				</div>
 				<div class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
 				<div class="step">
 					<div class="step-num">04</div>
 					<h4>Approve &amp; pay</h4>
-					<p>Sign the Art Review Agreement I send you, and email me the scanned contract. I'll email you a countersigned copy with bank details, and you pay by bank transfer. You cover bank charges and currency conversion costs. The quoted fee must arrive in full.</p>
+					<p>Sign the Art Review Agreement I send you, and reply to my email with the scanned contract. I'll email you a countersigned copy with bank details, and you pay by bank transfer. You cover bank charges and currency conversion costs. The quoted fee must arrive in full.</p>
 				</div>
 				<div class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
 				<div class="step">
@@ -677,30 +699,18 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 				<div class="cta-buy">
 					<div class="price">US$99</div>
 					<div style="font-size:.8em;opacity:.75;margin-bottom:.6rem;">approx. A$141</div>
-					<div style="font-size:.8em;opacity:.9;margin-bottom:.6rem;">The only way I can provide confidentiality guarantees for an Art Review is via your payment of the quotation fee via this button, because your details submitted through this process will go directly and only to me, Bany Jaya.</div>
+					<div style="font-size:.8em;opacity:.9;margin-bottom:.6rem;">Confidentiality starts only when you pay through this button: I then email you personally from my own address, and you send everything about your artwork only to that address. The contact form and email@hunchtrail.com are not confidential. This button works only for clients in the six places I serve, so only they can have this confidentiality.</div>
 					<div style="font-size:.8em;opacity:.9;margin-bottom:.6rem;">Refunded in full if I decline the job, or in several other set situations — see the <a href="terms.html#b4">refund terms</a>.</div>
-					<!-- FAIL CLOSED: the Stripe URL is held in data-href, not href, and is
-					     promoted to a real href by the eligibility gate below only once
-					     every answer is acceptable. With JavaScript off or blocked the
-					     button is inert and no payment can be made — deliberate, so that
-					     nobody can reach the checkout without passing the gate. The
-					     is-locked class ships in the markup so the button renders greyed
-					     from the first paint rather than flashing enabled. -->
-					<a data-href="https://buy.stripe.com/fZu9AV1lqg6zbwW9Pk38400" target="_blank" rel="noopener" class="btn btn-primary is-locked" id="payQuotationFee" aria-disabled="true" aria-describedby="gateMessage">Pay the Quotation Fee ↗</a>
-					<div style="font-size:.8em;color:var(--oxblood-bright);margin-bottom:.6rem;">Please complete the below dropdowns to access the payment button</div>
-					<noscript>
-						<p class="cta-noscript">The payment button needs JavaScript, because the eligibility questions below have to be answered before a payment can be accepted. Please enable JavaScript for this page, or <a href="#contact">send me an enquiry</a> and I will arrange payment another way.</p>
-					</noscript>
 				</div>
 
 				<!-- ELIGIBILITY GATE ------------------------------------------
-				     The payment button above stays locked until this block is completed.
+				     The payment button below stays locked until this block is completed.
 				     Nothing here is stored or transmitted; the answers exist
 				     to stop an ineligible payment being made, and are given
 				     again as Stripe checkout fields so there is a record.
 				     -------------------------------------------------------- -->
 				<div class="cta-gate" id="eligibilityGate">
-					<p class="cta-gate-intro"><b>Before you pay, a short eligibility check.</b> I supply this service in six jurisdictions only, and in two of them to business clients only. Your answers are not saved or sent from this page — you will be asked the same questions again at the Stripe checkout, where they are recorded against your order. Business clients in Germany and the Netherlands: I will ask you by email for your VAT identification number, and verify it, before any work begins.</p>
+					<p class="cta-gate-intro"><b>Before you pay, a short eligibility check.</b> I supply this service in six jurisdictions only, and in two of them to business clients only. Your answers are not saved or sent from this page — you will be asked the same questions again at the Stripe checkout, where they are recorded against your order. Business clients in Germany and the Netherlands: I will ask you by email for your VAT identification number (or, for a public body that has none, other official evidence of its status), and verify it, before any work begins.</p>
 					<div class="cta-gate-row">
 						<div class="cta-gate-field">
 							<label for="gateCountry">Billing country</label>
@@ -738,8 +748,8 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 							<label for="gateCapacity">You are contracting</label>
 							<select id="gateCapacity">
 								<option value="">Select…</option>
-								<option value="consumer">As a consumer — for myself</option>
-								<option value="business">As a business — for my trade or profession</option>
+								<option value="consumer">Consumer — for myself</option>
+								<option value="business">Business — trade or profession</option>
 							</select>
 						</div>
 					</div>
@@ -749,10 +759,25 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					</div>
 					<p class="cta-gate-msg" id="gateMessage" role="status" hidden></p>
 				</div>
+
+				<div class="cta-pay">
+					<!-- FAIL CLOSED: the Stripe URL is held in data-href, not href, and is
+					     promoted to a real href by the eligibility gate above only once
+					     every answer is acceptable. With JavaScript off or blocked the
+					     button is inert and no payment can be made — deliberate, so that
+					     nobody can reach the checkout without passing the gate. The
+					     is-locked class ships in the markup so the button renders greyed
+					     from the first paint rather than flashing enabled. -->
+					<a data-href="https://buy.stripe.com/fZu9AV1lqg6zbwW9Pk38400" target="_blank" rel="noopener" class="btn btn-primary is-locked" id="payQuotationFee" aria-disabled="true" aria-describedby="payStatus gateMessage">Pay the Quotation Fee ↗</a>
+					<p class="cta-pay-status" id="payStatus" aria-live="polite">Answer the questions above to unlock the payment button.</p>
+					<noscript>
+						<p class="cta-noscript">The payment button needs JavaScript, because the eligibility questions above have to be answered before a payment can be accepted. Please enable JavaScript for this page, or open it in another browser — the payment button cannot work without it.</p>
+					</noscript>
+				</div>
 			</div>
-			<p class="cta-caption reveal"><b>Where this service is offered.</b> This service is offered only to clients in the USA, UK, Germany, Netherlands, Canada (<b>but not Quebec</b>) and Australia, and only to business clients in Germany and the Netherlands. I do not market to, solicit or accept standard engagements from other jurisdictions. Unsolicited enquiries may be considered case-by-case but often cannot be accepted owing to legal constraints, and any such engagement would be on separate, individually negotiated terms. <a href="#contact">Enquiries are welcome here</a>.</p>
+			<p class="cta-caption reveal"><b>Where this service is offered.</b> This service is offered only to clients in the USA, UK, Germany, Netherlands, Canada (<b>but not Quebec</b>) and Australia, and only to business clients in Germany and the Netherlands. I do not market to, solicit or accept standard engagements from other jurisdictions. Unsolicited enquiries may be considered case-by-case but often cannot be accepted owing to legal constraints, and any such engagement would be on separate, individually negotiated terms. <a href="#contact">Enquiries are welcome here</a> or at email@hunchtrail.com, but neither is confidential, so please don't identify any artwork.</p>
 			<p class="cta-caption reveal"><b>If you are a consumer in the United Kingdom:</b> you have 14 days to cancel this Quotation without giving a reason, and the checkout asks you two separate questions: whether you want me to start work before those 14 days are up, and whether you accept that the right to cancel ends once the report is delivered. Nothing is pre-ticked. If you answer yes to both and then cancel, you pay only for the work actually done. If you don't, I won't start until the 14 days have passed. Consumers in Canada have cancellation rights under their own provincial law instead &mdash; they are described in clause <a href="terms.html#b26">B26</a>. Germany and the Netherlands are business-only, so no consumer cancellation right arises there. Full details, and the cancellation form, are in <a href="terms.html#part-b">Part B of the Terms</a>.</p>
-			<p class="cta-caption reveal"><b>In Germany and the Netherlands this service is supplied only to businesses, professionals and public institutions acquiring it for business purposes. It is not offered to, marketed to, or available to consumers</b> within the meaning of &sect;13 BGB, or to consumers in the Netherlands, and a consumer engagement in either country cannot be accepted on any terms. You must hold the artwork for business, professional, institutional or investment purposes — not for personal enjoyment or private collecting.</p>
+			<p class="cta-caption reveal"><b>In Germany and the Netherlands this service is supplied only to businesses and professionals acquiring it for business purposes, and to public institutions acquiring it in their official capacity. It is not offered to, marketed to, or available to consumers</b> within the meaning of &sect;13 BGB, or to consumers in the Netherlands, and a consumer engagement in either country cannot be accepted on any terms. You must hold the artwork for business, professional or institutional purposes — not for personal enjoyment, private collecting or private investment.</p>
 
 			<br>
 
@@ -761,7 +786,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 
 			<p class="text-columns reveal"><b>How the fee is calculated.</b> Your quote states an hourly rate and the total number of examination hours it buys, organised into review passes. The fee is the rate multiplied by the hours. I keep a contemporaneous time record and give it to you with your report. <b>You are paying for those hours of examination, not for a result</b>. If these hours produce no findings, the report says so and the engagement has been performed in full, with no refunds permitted on this basis. I don't give verbal findings, and anything said before the report lands is preliminary. If a piece warrants more hours than we agreed, I may suggest additional ones, but no extra hour is worked or charged unless you agree in writing and pay for it first, and you are never obliged to accept the suggestion.</p>
 
-			<p class="text-columns reveal">Each figure below is the total amount payable. I am not currently registered for Australian GST, so no GST is charged on any fee, wherever you are. If I become registered, the price will not change, but the price shown to Australian clients will include GST and prices to clients outside Australia will be unaffected. Australian dollar figures are approximate, converted at an indicative rate of 1 USD = 1.4255 AUD (updated 25 September 2026); the amount actually debited is set by your bank at its rate on the day and may include FX margins and international transaction fees. The contractual price is the US dollar amount. Bank charges, telegraphic transfer fees and currency conversion costs are borne by the client.</p>
+			<p class="text-columns reveal">Each figure below is the total amount payable. I am not currently registered for Australian GST, so no GST is charged on any fee, wherever you are. If I become registered, the price will not change, but the price shown to Australian clients will include GST and prices to clients outside Australia will be unaffected. Australian dollar figures are approximate, converted at an indicative rate of 1 USD = 1.4235 AUD (updated 28 September 2026); the amount actually debited is set by your bank at its rate on the day and may include FX margins and international transaction fees. The contractual price is the US dollar amount. Bank charges, telegraphic transfer fees and currency conversion costs are borne by the client.</p>
 
 			<p><strong>Tap any image below to view it in full screen mode</strong>.</p>
 
@@ -773,7 +798,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					<div class="exhibit-body">
 						<span class="exhibit-tag2">Exhibit A — Limited detail</span>
 						<div class="exhibit-price">US$30,000</div>
-						<div class="exhibit-aud">approx. A$42,764</div>
+						<div class="exhibit-aud">approx. A$42,706</div>
 						<div class="exhibit-turn">~2 weeks turnaround</div>
 					</div>
 				</div>
@@ -784,7 +809,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					<div class="exhibit-body">
 						<span class="exhibit-tag2">Exhibit B — Moderate detail</span>
 						<div class="exhibit-price">US$70,000</div>
-						<div class="exhibit-aud">approx. A$99,784</div>
+						<div class="exhibit-aud">approx. A$99,647</div>
 						<div class="exhibit-turn">~4 weeks turnaround</div>
 					</div>
 				</div>
@@ -795,7 +820,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					<div class="exhibit-body">
 						<span class="exhibit-tag2">Exhibit C — Rich detail</span>
 						<div class="exhibit-price">US$180,000</div>
-						<div class="exhibit-aud">approx. A$256,587</div>
+						<div class="exhibit-aud">approx. A$256,235</div>
 						<div class="exhibit-turn">~6 weeks turnaround</div>
 					</div>
 				</div>
@@ -806,7 +831,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					<div class="exhibit-body">
 						<span class="exhibit-tag2">Exhibit D — Intricate detail</span>
 						<div class="exhibit-price">US$350,000</div>
-						<div class="exhibit-aud">approx. A$498,918</div>
+						<div class="exhibit-aud">approx. A$498,234</div>
 						<div class="exhibit-turn">~9 weeks turnaround</div>
 					</div>
 				</div>
@@ -837,11 +862,10 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 					<button type="button" class="video-facade"
 					        data-video-src="https://www.youtube-nocookie.com/embed/70mC4FUnCxg?si=zcgm6Tuym2fGgVpv&amp;autoplay=1&amp;playsinline=1"
 					        data-video-title="The Hunch Trail — an example art analysis">
-						<!-- PLACEHOLDER — this file does not exist yet.
-						     Supply a 1280x720 JPEG here, ideally a frame
-						     exported from the video itself. Until it exists
-						     the script hides this <img> and the button shows
-						     on its plain dark background instead.
+						<!-- Poster: images/video-poster.jpg, a 1280x720 frame
+						     from the video, hosted on this site. If the file
+						     is ever missing, the script hides this <img> and
+						     the button shows on its plain dark background.
 						     Do NOT point this at img.youtube.com: fetching
 						     the thumbnail from Google leaks the visitor's IP
 						     address, which is exactly what the facade is
@@ -882,16 +906,25 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 			<div class="contact-grid reveal">
 				<div>
 					<p class="lede" style="font-size:1.05rem;">Have a general question that isn't answered <a href="#faq">in the FAQ below</a>? Send it here.</p>
-					<p class="note-callout">This form is for general enquiries only. If you're asking about pricing or requesting a quote, please use the <a href="#work">Quotation Fee</a> button above instead — pricing questions sent through this form won't usually receive a reply.</p>
-					<p class="note-callout">I supply this service in six places only: the USA, the UK, Germany, the Netherlands, Canada excluding Quebec, and Australia, as well as to business clients in Germany and the Netherlands. You are welcome to enquire about a bespoke arrangement from outside these jurisdictions.</p>
-					<p class="note-callout">This form and our business email address aren't confidential channels because these messages may be received by a staff member. If you require confidentiality as part of an Art Review, submit a <a href="#work">Quotation Request</a> instead: that's what reaches me personally, and brings the confidentiality guarantee in <a href="terms.html#b13">clause B13</a> of the Terms with it.</p>
+					<div class="note-callout" style="margin-bottom:1.15em;">
+						<p><b>This form is not confidential, and neither is email@hunchtrail.com.</b> Messages sent either way may in future be read by a staff member, and no confidentiality guarantee applies to them &mdash; so please don't identify any artwork you're thinking of having reviewed. This form is for general enquiries only: pricing questions and quote requests sent through it won't usually receive a reply.</p>
+						<p>I supply this service in six places only: the USA, the UK, Germany, the Netherlands, Canada excluding Quebec, and Australia, as well as to business clients in Germany and the Netherlands. You are welcome to enquire about a bespoke arrangement from outside these jurisdictions.</p>
+						<p style="margin-bottom:0;"><b>The only confidential route</b> is to pay the <a href="#quotationFeeCTA">Quotation Fee</a>: I then email you personally from my own address, and everything about your artwork goes only to that address (see <a href="terms.html#b13">clause B13</a> of the Terms). The payment button only works for clients in those six places, so confidentiality is available only to them; anyone else can reach me only through this form or email@hunchtrail.com.</p>
+					</div>
 					<p style="font-size:.9rem;">NOTE: A bespoke agreement will not often be possible. The obstacles are legal rather than commercial — consumer, tax, language, and data-protection rules that a one-person business working in English cannot meet in every country. Most of what makes an unlisted country difficult is its consumer-protection laws, which do not apply where the client is contracting for a trade, business or profession. <b>If you are enquiring on behalf of a gallery, dealership, auction house, insurer, fund or other business, please say so and provide your registration or VAT number</b>.</p>
 				</div>
 				<div class="form-card">
 					<form method="post" action="https://api.web3forms.com/submit">
 						<input type="hidden" name="access_key" value="fa3f3ed2-114a-49dc-9976-e09dc0703085">
 						<input type="hidden" name="redirect" value="https://hunchtrail.com/form_received.html">
-						<input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off">
+						<!-- Spam trap (Web3Forms "botcheck"). Hidden from people and from
+						     screen readers; its label is written to look like an ordinary
+						     option so a bot that fills in every field ticks it, and the
+						     submission is then rejected (see the script below). -->
+						<div class="hp-field" aria-hidden="true">
+							<label for="f-copy">Email me a copy of this message</label>
+							<input type="checkbox" id="f-copy" name="botcheck" tabindex="-1" autocomplete="off">
+						</div>
 						<div class="field">
 							<label for="f-name">Name</label>
 							<input type="text" id="f-name" name="name" required />
@@ -905,6 +938,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 							<textarea id="f-message" name="message" rows="5" required></textarea>
 						</div>
 						<button type="submit" class="btn btn-outline" style="width:100%;">Submit</button>
+						<p style="font-size:.78rem;line-height:1.5;margin:.9rem 0 0;color:var(--ink-soft);">Your message reaches me through Web3Forms, a third-party form service, and is kept for up to 24 months &mdash; see sections 1.2 and 4 of the <a href="privacy.html">Privacy Policy</a>.</p>
 					</form>
 				</div>
 			</div>
@@ -923,11 +957,13 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 			</div>
 
 			<div class="faq-list reveal">
-				<details class="faq-item">
+				<h3 class="faq-group" id="faq-confidentiality">Confidentiality and your artwork</h3>
+				<details class="faq-item" id="confidentiality">
 					<summary>Are my identity and the findings of my report confidential?</summary>
 					<div class="faq-body">
 						<p>Your identity — including your name and your address — the photographs and information you send me, and the fact that you engaged me at all stay confidential <b>permanently</b> — unless and until you, your legal personal representative, or your successor in title if you are a company or institution, give me express written permission otherwise. <b>The contents of your report are confidential for five (5) years</b> from the date I deliver the report to you, and that particular obligation then ends. I am also permanently barred from connecting you, or any other named person, to any named artwork. So even when the five years are up, I can't name you, can't say a piece was reviewed for a client, and can't publish your photographs, which stay yours. I may disclose confidential information in the following circumstances: with your prior written permission; where a law, a court or a regulator compels me; to my own legal, accounting or insurance advisers, who are themselves bound to keep it confidential; and so far as necessary to bring or defend a claim between us. The obligation also does not apply at all to information that is already public through no fault of mine, that I can show by dated records I already held before you sent it, that I developed independently without reference to anything you gave me, or that I lawfully received from a third party who was under no duty of confidence. Those limits are set out in full at <a href="terms.html#b13-limits">clause B13 of the Terms</a> — please read them before you pay.</p>
-						<p><b>What is not confidential: the artwork itself.</b> My promise covers <i>your information</i> and <i>what I found for you</i>. It does not cover the artwork, its existence, its attribution, its history, or any other fact about it. It also doesn't cover artworks I have already analysed independently. This includes artworks listed on the <a href="schedule.html">Schedule of Prior Analysis</a>, those with references in my picture book, everything covered on my YouTube channel, and everything covered on my other public channels, <b>including material I publish after your engagement begins</b>. I remain free to discuss and publish my own independent work on all of it. If your artwork is on that list when you request a quotation, I'll decline the job and refund you in full unless you tell me in writing that you want to go ahead anyway. Please check the exclusion list before you pay.</p>
+						<p id="confidential-route"><b>How to keep it confidential.</b> Confidentiality starts only when you pay the Quotation Fee. I then email you personally from my own address, and you send your photos and everything else about your artwork <b>only to that address</b>, by replying to it. The contact form and email@hunchtrail.com are not confidential, and no confidentiality applies to anything sent through them. Because the payment button only works for clients in the six places I serve, this confidentiality is available only to them.</p>
+						<p><b>What is not confidential: the artwork itself.</b> My promise covers <i>your information</i> and <i>what I found for you</i>. It does not cover the artwork, its existence, its attribution, its history, or any other fact about it. Where an artwork is kept isn't confidential either &mdash; unless you own it and tell me, in which case that becomes part of your confidential materials. But I don't need to know where any artwork is, so please don't tell me. It also doesn't cover artworks I have already analysed independently. This includes artworks listed on the <a href="schedule.html">Schedule of Prior Analysis</a>, those with references in my picture book, everything covered on my YouTube channel, and everything covered on my other public channels, <b>including material I publish after your engagement begins</b>. I remain free to discuss and publish my own independent work on all of it. If your artwork is on that list when you request a quotation, I'll decline the job and refund you in full unless you tell me in writing that you want to go ahead anyway. Please check the exclusion list before you pay.</p>
 						<p>There are four narrow exceptions to confidentiality, set out in clause B13 of the <a href="terms.html">Terms</a>: information already public through no fault of mine, information I already held on dated record, information I worked out independently of you, and information I lawfully received from someone else who owed no duty of confidence. I also have to keep your information secure, and if anything is lost, stolen or accessed without authority I have to tell you promptly.</p>
 						<p>If the artwork you name is one I have already analysed, I will tell you straight away, decline the job, and refund the fee in full. Those artworks are published in advance on the <a href="schedule.html">Schedule of Prior Analysis</a>, so you can check before paying anything.</p>
 						<p><b>And one you cannot check in advance.</b> I will not review an artwork I have already reviewed for someone else within the previous five years, because a second report would cover the same ground and include duplicated findings, and that would put the earlier client&#x27;s confidentiality at risk. If your artwork is one of those, I will tell you that I cannot accept the engagement and I'll refund you in full &mdash; the US$99, and any Art Review fee you might have paid. <b>I will not tell you the reason</b>, because saying so would itself reveal that someone else engaged me to review that artwork. I will not confirm, deny or discuss any speculations regarding this, whoever asks. This is unavoidable in the event that a second person pays to review a painting I've previously worked on. See clause <a href="terms.html#b30">B30</a> of the Terms.</p>
@@ -940,22 +976,18 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 						<p><b>Two things end it early, and you should know both before you pay.</b> The promise protects an artwork you have actually commissioned me to review. It stops applying, or never applies at all, if either of these happens: <b>(i)</b> you pay the US$99, receive your quote, and do not enter into a Services Agreement for that artwork within <b>sixty (60) days</b> of the date of the quote; or <b>(ii)</b> I refund the Quotation Fee to you prior to you paying for the Art Review. In either case I am free from that point to research, write about, publish on, and accept another client&#x27;s instructions in respect of that artwork. What never lapses is your side of it: your identity, your address and your photographs stay confidential permanently, and I am permanently barred from connecting you &mdash; or any other identified person &mdash; to any identified artwork unless and until you, your legal personal representative, or your successor in title if you are a company or institution, give me express written permission otherwise. The exact wording is at clause <a href="terms.html#b13">B13</a> and clause <a href="terms.html#b14">B14</a> of the Terms.</p>
 					</div>
 				</details>
-				<details class="faq-item">
-					<summary>Do you specialise in a particular genre?</summary>
-					<div class="faq-body">
-						<p>Religious art is my preferred genre, and where I do my best work. It's the subject matter I find most engaging, and where I feel I am most likely to correctly identify intentional concealment by the artist.</p>
-					</div>
-				</details>
+				<h3 class="faq-group" id="faq-who">Who can use the service</h3>
 				<details class="faq-item" id="eligibility">
 					<summary>Do I need to be from a particular country to use this service?</summary>
 					<div class="faq-body">
-						<p><b>Yes.</b> The service is offered only to clients in the <b>United States, the United Kingdom, Germany, the Netherlands, Canada excluding Quebec, and Australia</b>. In <b>Germany and the Netherlands it is available to business clients only</b>, so if you are buying for yourself there rather than for a trade or profession, I cannot accept the engagement on any terms. I do not market to, solicit or accept standard engagements from anywhere else at this time. You are welcome to <a href="#contact">send a request</a> for a bespoke agreement from outside these countries, where any such engagement would be on separately negotiated terms. This is most likely to work out when you are a business client intending to use the service for business purposes, for which you must provide your relevant business registration number, or your VAT number.</p>
+						<p><b>Yes.</b> The service is offered only to clients in the <b>United States, the United Kingdom, Germany, the Netherlands, Canada excluding Quebec, and Australia</b>. In <b>Germany and the Netherlands it is available to business clients only</b>, so if you are buying for yourself there rather than for a trade or profession, I cannot accept the engagement on any terms. I do not market to, solicit or accept standard engagements from anywhere else at this time. You are welcome to <a href="#contact">send a request</a> through the contact form, or to email email@hunchtrail.com, for a bespoke agreement from outside these countries, where any such engagement would be on separately negotiated terms. Neither route is confidential, and no confidentiality applies to anything sent that way, so please don't identify any artwork. This is most likely to work out when you are a business client intending to use the service for business purposes, for which you must provide your relevant business registration number, or your VAT number.</p>
 						<p><b>I don't offer this service to anyone resident or established in Quebec (Canada) due to French language obligations that arise there.</b> It applies to everyone resident or established in Quebec on identical terms, whatever their language, nationality, or ethnic or national origin, and it has no effect on anyone outside Quebec. The rest of Canada is unaffected, and a French-speaking client anywhere else is welcome on exactly the same terms as everyone else, on the understanding that the service itself is delivered entirely in English. Clause <a href="terms.html#b1">B1</a> of the Terms addresses this.</p>
 						<p>If you're in Quebec and somehow pay the US$99 Quotation Fee anyway, I'll refund it in full — no deduction — and I'll leave it there. If it has gone further than that and I've already started the Art Review itself before either of us realises, I refund the Art Review fee less the hours actually worked at the rate you'd already agreed, and I give you my time record with it. Tell me early and there is nothing to deduct. Clause <a href="terms.html#b1">B1</a> of the Terms sets this out.</p>
 						<p>I do check your name, and the name of whoever is paying, against the Australian Government's <a href="https://www.dfat.gov.au/international-relations/security/sanctions/consolidated-list" rel="noopener">DFAT Consolidated List</a>, the United States OFAC Specially Designated Nationals list (and, where the dealing warrants it, the OFAC Sectoral Sanctions Identifications list), the UK OFSI consolidated list, and the EU consolidated list before accepting an engagement. A small number of sectoral and region-specific measures exist, and if one applies, I'll inform you and refund your fee in full.</p>
 						<p>The contract is governed by the law of New South Wales, Australia. If you are a consumer somewhere else — the UK, Canada or Australia — that doesn't take away the consumer protections you have at home, and it doesn't stop you bringing a claim in your own courts. Business clients, including all clients in Germany and the Netherlands, are on a different track: disputes go to arbitration seated in Sydney under the ACICA Rules. That arbitration agreement comes into existence only when a business client separately and expressly agrees to it in writing, by initialling the arbitration box in the Art Review Services Agreement before signing. Until that happens, there is no arbitration agreement and the courts of New South Wales apply as normal. No consumer is ever required to arbitrate. See clause <a href="terms.html#b31">B31</a>.</p>
 					</div>
 				</details>
+				<h3 class="faq-group" id="faq-fees">Fees, payment and refunds</h3>
 				<details class="faq-item" id="refunds">
 					<summary>Is the US$99 Quotation Fee ever refunded?</summary>
 					<div class="faq-body">
@@ -964,16 +996,23 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 						<p>What it doesn't cover is simply deciding not to proceed once you've seen the quote, or the quoted number being higher than you'd hoped. Pricing your piece is real work and it gets done either way. Nothing here limits any right you have under the Australian Consumer Law or the consumer law of your own country. Clause B4 of the <a href="terms.html">Terms</a> sets this out in full.</p>
 					</div>
 				</details>
-				<details class="faq-item">
+				<details class="faq-item" id="payment-methods">
 					<summary>What payment methods are available?</summary>
 					<div class="faq-body">
 						<p>You pay the Quotation Fee by card through Stripe. Stripe decides which cards and payment methods it accepts in your country. If you go ahead with the full Art Review after receiving your quote, you'll pay by telegraphic transfer / international bank transfer to my Australian bank account — but only after you've returned a signed agreement and I've sent you a countersigned copy. All fees are quoted in US dollars and each quoted figure is the total amount payable. I am not currently registered for GST, so no GST is charged on any fee, wherever you are. If I become registered, the price won't change, but will include GST for Australian clients, while clients outside Australia will be unaffected. Bank charges, intermediary bank fees and currency conversion costs are borne by you, and the quoted amount needs to reach the account in full, so please instruct your bank accordingly. Stripe may show and charge the US$99 in your own currency; the rate and any conversion fee are set by Stripe or your card issuer, not by me, so the amount debited can differ slightly from US$99.</p>
 					</div>
 				</details>
-				<details class="faq-item">
+				<h3 class="faq-group" id="faq-process">How an Art Review works</h3>
+				<details class="faq-item" id="sending-artwork">
 					<summary>How do I send you the artwork for analysis?</summary>
 					<div class="faq-body">
-						<p>When you pay the Quotation Fee, you'll provide your email address and a telephone number on the Stripe payment form. I'll then email you personally to arrange submission of the artwork. Everything after that is done by email. You'll send digital photos of the piece (several angles for sculpture) and some background details, so I can prepare an accurate quote. You keep the copyright in everything you send; I only use it to perform the analysis. Please don't send identity documents or photographs of yourself — I don't need them and won't keep them. Within 30 days of delivering your report I delete or return your images and notes, keeping only one archival copy for my own records, my tax obligations and in case a legal claim is ever made.</p>
+						<p>When you pay the Quotation Fee, you'll provide your email address and a telephone number on the Stripe payment form. Within two business days I'll email you personally from my own address. <b>Reply only to that address</b> &mdash; it's the only confidential channel, so send your photos and everything else there, never through the contact form or to email@hunchtrail.com. You'll send digital photos of the piece (several angles for sculpture) and some background details, so I can prepare an accurate quote. Please don't tell me where the artwork is kept &mdash; I don't need to know. If my email hasn't arrived within two business days, check your spam folder, then email email@hunchtrail.com with just your name and Stripe receipt number &mdash; nothing about the artwork &mdash; and I'll write to you from my own address. You keep the copyright in everything you send; I only use it to perform the analysis. Please don't send identity documents or photographs of yourself — I don't need them and won't keep them. Within 30 days of delivering your report I delete or return your images and notes, keeping only one archival copy for my own records, my tax obligations and in case a legal claim is ever made.</p>
+					</div>
+				</details>
+				<details class="faq-item" id="signing">
+					<summary>Do I have to sign anything?</summary>
+					<div class="faq-body">
+						<p>Not for the US$99 Quotation Fee — paying it at the Stripe checkout is where you accept the terms, which are linked there. For the Art Review itself there is a full Art Review Services Agreement I will provide as part of my quotation process. It names the piece, the hourly rate, the number of examination hours, the fee and the timetable, and it ends with a table of acknowledgements you initial box by box — confirming, among other things, that you understand you are buying the search for hidden details rather than any guarantee of finding any, that I hold no formal qualifications, that my method is unproven, and that I carry no professional indemnity insurance due to common exclusions relating to art consulting. You print the agreement, complete it, initial it, sign it, scan every page, and reply to my email with the scan. I countersign and send it back. Only then do you pay. At these amounts, it's in both our interests to have the specifics written down and signed rather than inferred from a payment.</p>
 					</div>
 				</details>
 				<details class="faq-item" id="report_rights">
@@ -984,13 +1023,14 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 						<p>Additionally, the report is prepared solely for the client named in it, solely for the purpose stated in it. No other person may rely on it. I accept no duty of care and no liability of any kind to any other person — including, but not limited to, a buyer, a seller, an agent, an auction house, an insurer, a lender or a valuer — whether or not I knew the report might be shown to them. If you pass the report on to any third party, it must be provided with this limitation conveyed as well.</p>
 					</div>
 				</details>
-				<details class="faq-item" id="signing">
-					<summary>Do I have to sign anything?</summary>
+				<h3 class="faq-group" id="faq-method">Me and my method</h3>
+				<details class="faq-item" id="genre">
+					<summary>Do you specialise in a particular genre?</summary>
 					<div class="faq-body">
-						<p>Not for the US$99 Quotation Fee — paying it at the Stripe checkout is where you accept the terms, which are linked there. For the Art Review itself there is a full Art Review Services Agreement I will provide as part of my quotation process. It names the piece, the hourly rate, the number of examination hours, the fee and the timetable, and it ends with a table of acknowledgements you initial box by box — confirming, among other things, that you understand you are buying the search for hidden details rather than ay guarantee of finding any, that I hold no formal qualifications, that my method is unproven, and that I carry no professional indemnity insurance due to common exclusions relating to art consulting. You print the agremeent, complete it, initial it, sign it, scan every page, and email the scan back to me. I countersign and send it back. Only then do you pay. At these amounts, it's in both our interests to have the specifics written down and signed rather than inferred from a payment.</p>
+						<p>Religious art is my preferred genre, and where I do my best work. It's the subject matter I find most engaging, and where I feel I am most likely to correctly identify intentional concealment by the artist.</p>
 					</div>
 				</details>
-				<details class="faq-item">
+				<details class="faq-item" id="qualifications">
 					<summary>Do you have qualifications that authorise you to analyse, value, attribute, and authenticate art?</summary>
 					<div class="faq-body">
 						<p>No.</p>
@@ -999,36 +1039,38 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 						<p>Any decision to buy, sell, insure, restore, or otherwise act upon an artwork discussed on this site or in any consultation should be made only after obtaining independent advice from a suitably qualified and licensed professional. My liability for loss or damage arising from reliance on the opinions expressed on this website, or in any Art Review report, is limited as set out in the Terms, except to the extent that liability cannot be excluded under the Australian Consumer Law or under any other law that applies to you and cannot be excluded.</p>
 					</div>
 				</details>
-				<details class="faq-item">
+				<details class="faq-item" id="method-legitimacy">
 					<summary>How would I know whether your techniques are scientifically legitimate?</summary>
 					<div class="faq-body">
 						<p>If legitimacy arises from a consensus of individuals who are recognised as experts within a field, I don’t think you can. The techniques I have developed, and the research I have performed, are not public. They are proprietary. It is my claim that they represent innovation in a field that has traditionally tended to ignore findings borne out of pareidolia. As a result, my methods are not part of the body of recognised, peer-reviewed scientific literature. This means that there are no formal qualifications to train anyone to perform the particular kind of technical research services I am offering. What makes it particularly hard to absorb into the scientific literature is the inherent subjectivity involved when dealing with the level of the human perceptual system where pareidolia operates. There is a real possibility that no widespread scientific consensus ever forms around these techniques. Since most people equate a consensus of experts to ‘the truth’, you might never get the consensus you require to feel confident that you have the truth. But the scientific method was designed precisely to stand up to even the most unanimous agreement of recognised experts in any field. And the scientific method is ultimately performed by individuals.</p>
 					</div>
 				</details>
-				<details class="faq-item">
+				<details class="faq-item" id="attribution">
 					<summary>Do you provide an opinion on the authenticity and attribution of artworks subjected to an Art Review?</summary>
 					<div class="faq-body">
-						<p>No. I do not provide concrete opinions on attribution and authentication because I am not formally qualified, licensed, accredited or certified to do so. I use proprietary analytical methods to surface hidden details in an artwork. If other other works attributed to the same artist contain similar such details, the similarities between the hidden details in such works could form the basis of an argument for attribution and authentication. You can then take such information to a qualified, licensed or certified professional to perform formal assessments, such as attributions, authentications, or valuations. I do not provide any actual authentications or attributions. I only provide the investigative service that has the potential to inform such processes.</p>
+						<p>No. I do not provide concrete opinions on attribution and authentication because I am not formally qualified, licensed, accredited or certified to do so. I use proprietary analytical methods to surface hidden details in an artwork. If other works attributed to the same artist contain similar such details, the similarities between the hidden details in such works could form the basis of an argument for attribution and authentication. You can then take such information to a qualified, licensed or certified professional to perform formal assessments, such as attributions, authentications, or valuations. I do not provide any actual authentications or attributions. I only provide the investigative service that has the potential to inform such processes.</p>
 					</div>
 				</details>
-				<details class="faq-item">
+				<details class="faq-item" id="valuations">
 					<summary>Do you perform valuations and art appraisals?</summary>
 					<div class="faq-body">
 						<p>No, I do not. I only attempt to uncover any details that might have been concealed using pareidolia. While these could have an effect on the amount of interest in a piece of art, I make no claim about what effect, if any, that has on the demand for, or the value of a piece of art — see clause B7 of the Terms. Valuations and appraisals must be performed by qualified, licensed, accredited, and/or certified art professionals.</p>
 					</div>
 				</details>
-				<details class="faq-item">
+				<details class="faq-item" id="value-guarantee">
 					<summary>Do you guarantee that my artwork will increase in value, or at least not decrease in value as a result of the findings of an Art Review?</summary>
 					<div class="faq-body">
 						<p>No. I offer no guarantees or assurances in regards to the effects of an Art Review on the valuations of any artwork.</p>
 					</div>
 				</details>
-				<details class="faq-item">
+				<h3 class="faq-group" id="faq-rules">The rules that apply</h3>
+				<details class="faq-item" id="site-rules">
 					<summary>What rules govern the use of this site and the services you offer?</summary>
 					<div class="faq-body">
 						<p>Use of this site is subject to our <a href="terms.html">Website Terms of Use</a>. Collection and use of personal information is subject to our <a href="privacy.html">Privacy Policy</a>.</p>
 					</div>
 				</details>
+				<h3 class="faq-group" id="faq-book">Buying the book: Factory Seconds copies</h3>
 				<details class="faq-item" id="factory-seconds-diff">
 					<summary>What's the difference between a standard hardcover copy and a Factory Seconds copy?</summary>
 					<div class="faq-body">
@@ -1077,6 +1119,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 			12A Ferraro Crescent<br>
 			West Hoxton NSW 2171 Australia<br>
 			ABN: 40 337 610 019<br>
+			General enquiries (not confidential):<br>
 			<a href="mailto:email@hunchtrail.com">email@hunchtrail.com</a>
 		</div>
 		<div class="legal-lines">
@@ -1086,27 +1129,28 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 		</div>
 	</div>
 	<div class="wrap footer-notices">
-		<p class="footer-notice" lang="en"><b>Germany and the Netherlands:</b> the Art Review service is supplied to businesses, professionals and public institutions for business purposes only. It is not offered or supplied to consumers within the meaning of &sect;13 BGB, or to consumers in the Netherlands.</p>
+		<p class="footer-notice" lang="en"><b>Germany and the Netherlands:</b> the Art Review service is supplied only to businesses and professionals for business purposes, and to public institutions acting in their official capacity. It is not offered or supplied to consumers within the meaning of &sect;13 BGB, or to consumers in the Netherlands.</p>
 		<p class="footer-notice" lang="fr"><b>Qu&eacute;bec (Canada): </b>nos services d&rsquo;analyse d&rsquo;&oelig;uvres d&rsquo;art ne sont pas offerts aux personnes r&eacute;sidant ou &eacute;tablies au Qu&eacute;bec (Canada), et nous n&rsquo;acceptons pas de client&egrave;le qu&eacute;b&eacute;coise. Ce site et l&rsquo;ensemble de nos services, communications et documents sont disponibles en anglais seulement.</p>
 	</div>
 </footer>
 
 <!--
-	Page-view and security logger — page path, timestamp, referral-source
-	tag, referring page, IP address and User-Agent. The IP address and
-	User-Agent are read by the Lambda function from the request itself,
-	not sent by this script. See assets/js/visit-log.js for exactly what
-	it sends, and privacy.html section 2 for the disclosure this
-	corresponds to. Deleted automatically 180 days after being written.
+	Page-view and security logger — page path, time, referral-source tag,
+	referring page, User-Agent, and a keyed hash of the IP address (never
+	the address itself). The time, User-Agent and hash are worked out by
+	the Lambda function from the request itself, not sent by this script.
+	See assets/js/visit-log.js for exactly what it sends, and privacy.html
+	section 2 for the disclosure this corresponds to. Deleted
+	automatically 180 days after being written.
 -->
 <script src="assets/js/visit-log.js"></script>
 
 <!-- ============================================================
      LIGHTBOX
 ============================================================ -->
-<div class="lightbox" id="lightbox" aria-hidden="true">
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image" aria-hidden="true">
 	<button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close image">&times;</button>
-	<img src="" alt="" id="lightboxImg">
+	<img alt="" id="lightboxImg">
 </div>
 
 <noscript>
@@ -1244,11 +1288,27 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 		faqItems.forEach(function(item){
 			item.addEventListener('toggle', syncFaqToggleLabel);
 		});
+
+		/* Item 19 (27 September 2026): an address ending in a question's
+		   id (for example hunchtrail.com/#refunds) opens that question,
+		   rather than just scrolling to its closed heading. Runs on load
+		   and whenever the address changes. The 'toggle' listener above
+		   keeps the View all / Collapse all label in step. */
+		var openFaqFromHash = function(){
+			var target = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+			if (target && target.classList.contains('faq-item')) target.open = true;
+		};
+		openFaqFromHash();
+		window.addEventListener('hashchange', openFaqFromHash);
 	}
 
-	/* Magnifier loupe */
+	/* Magnifier loupe. Only frames marked .loupe-active get one: the
+	   same class the CSS uses to decide which frames capture touch
+	   gestures, so script and stylesheet always agree. Exhibit Two has
+	   no lens, and binding it used to throw an error on every hover or
+	   tap. */
 	var supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-	document.querySelectorAll('.loupe-frame').forEach(function(frame){
+	document.querySelectorAll('.loupe-frame.loupe-active').forEach(function(frame){
 		var img = frame.querySelector('img');
 		var lens = frame.querySelector('.loupe-lens');
 		var zoom = parseFloat(frame.dataset.zoom) || 2.4;
@@ -1429,6 +1489,7 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 		var elConf    = document.getElementById('gateConfirm');
 		var elConfLbl = document.getElementById('gateConfirmLabel');
 		var elMsg     = document.getElementById('gateMessage');
+		var elStatus  = document.getElementById('payStatus');
 
 		/* One entry per served jurisdiction. Everything the gate needs to
 		   know about a country lives here, so adding or removing one is a
@@ -1447,9 +1508,11 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 			'This service is offered only to clients in the USA, UK, Germany, Netherlands, ' +
 			'Canada (excluding Quebec) and Australia, and in Germany and the Netherlands to ' +
 			'business clients only. I do not market to, solicit or accept standard engagements ' +
-			'from other jurisdictions. You are welcome to <a href="#contact">send an enquiry</a>, ' +
-			'but it often cannot be accepted owing to legal constraints; any engagement that is ' +
-			'would be on separate, individually negotiated terms.';
+			'from other jurisdictions. You are welcome to <a href="#contact">send an enquiry</a> ' +
+			'or email email@hunchtrail.com, but it often cannot be accepted owing to legal ' +
+			'constraints, and any engagement that is would be on separate, individually ' +
+			'negotiated terms. <b>Neither route is confidential</b>, and no confidentiality ' +
+			'guarantee applies to anything sent through them, so please don\'t identify any artwork.';
 
 		var QUEBEC_MSG =
 			'I don\'t accept clients resident or established in Quebec, Canada. Please don\'t pay. ' +
@@ -1481,11 +1544,11 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 			   — so the tick box asks for the underlying fact (why the
 			   artwork is held) rather than only for the label. */
 			if (spec.b2bOnly) {
-				text += ' I further confirm that I hold the artwork for business, professional, ' +
-				        'institutional or investment purposes and NOT for personal enjoyment, ' +
-				        'private collecting or any other private purpose, and that I am an ' +
-				        'Unternehmer or equivalent business, professional or public institution ' +
-				        'and not a consumer.';
+				text += ' I further confirm that I hold the artwork for business, professional ' +
+				        'or institutional purposes and NOT for personal enjoyment, private ' +
+				        'collecting, private investment or any other private purpose, and that ' +
+				        'I am an Unternehmer or equivalent business, professional or public ' +
+				        'institution and not a consumer.';
 			}
 			return text + ' I give this as a warranty under the Art Review Service Terms.';
 		};
@@ -1558,6 +1621,13 @@ figure.mantegna-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top
 			   the browser offering "open link in new tab" on it. */
 			if (unlocked) payBtn.setAttribute('href', payHref);
 			else payBtn.removeAttribute('href');
+
+			/* The line beside the button says what is still needed, or
+			   that the button is live. */
+			elStatus.textContent = unlocked
+				? 'Ready \u2014 this opens Stripe\u2019s secure checkout in a new tab.'
+				: 'Answer the questions above to unlock the payment button.';
+			elStatus.classList.toggle('is-ready', unlocked);
 		};
 
 		/* One listener per control, all running the same render. Browsers

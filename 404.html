@@ -6,22 +6,37 @@
      the next time build.py runs. To make a change:
        - header/nav for the whole site  -> partials/header.html
        - footer for the whole site       -> partials/footer.html
-       - this page's own content         -> src/form_received.html
+       - this page's own content         -> src/404.html
      Then re-run:  python build.py
 ============================================================ -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Message Received — The Hunch Trail™</title>
+<title>Page Not Found — The Hunch Trail™</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex" />
-
-<link rel="stylesheet" href="assets/css/fonts.css">
-<link rel="stylesheet" href="assets/css/hunch-theme.css">
+<!--
+	CUSTOM 404 PAGE
+	GitHub Pages shows this page, with a 404 status, for any address on
+	hunchtrail.com that doesn't exist. It is shown AT the mistyped
+	address (e.g. /old/page), not at /404.html, so the marker above
+	tells build.py to rewrite every relative link on this page —
+	including the shared header and footer — to start from the site
+	root. Without that, a nested bad address would load this page
+	unstyled and without the visit logger. Preview it through a local
+	web server (python -m http.server) rather than by double-clicking
+	the file: root-relative links don't resolve from a file:// address.
+	The visit logger records the mistyped address as the page, which
+	makes broken inbound links visible on the dashboard.
+-->
+<link rel="stylesheet" href="/assets/css/fonts.css">
+<link rel="stylesheet" href="/assets/css/hunch-theme.css">
 <style>
 .confirm{min-height:60vh;display:flex;align-items:center;}
 .confirm .wrap{max-width:640px;}
 .confirm-mark{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--oxblood);}
+.notfound-links{margin:1.2rem 0 0;padding-left:1.2rem;}
+.notfound-links li{margin:.35rem 0;}
 </style>
 </head>
 <body>
@@ -43,7 +58,7 @@
 		</nav>
 		<div class="header-actions">
 			<a href="https://hunchtrail.com/#work" class="btn btn-primary header-cta">Art Review Quote</a>
-			<a href="bookshop_links.html" class="btn btn-accent header-cta">BUY THE BOOK</a>
+			<a href="/bookshop_links.html" class="btn btn-accent header-cta">BUY THE BOOK</a>
 			<button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Toggle menu"><span></span></button>
 		</div>
 	</div>
@@ -52,10 +67,17 @@
 <main id="main">
 	<section class="confirm">
 		<div class="wrap">
-			<p class="confirm-mark">Message received</p>
-			<h1>Thank You</h1>
-			<p class="lede">We've received your message. We read every message and reply as soon as possible – typically within three business days. Please note that pricing and quote requests are typically handled through the Quotation Fee process rather than by reply to this form.</p>
-			<p style="margin-top:1.8rem;"><a href="https://hunchtrail.com" class="btn btn-outline">← Back to The Hunch Trail</a></p>
+			<p class="confirm-mark">Page not found</p>
+			<h1>That page isn't here</h1>
+			<p class="lede">The address may have been mistyped, or the page may have moved. One of these is probably what you were looking for:</p>
+			<ul class="notfound-links">
+				<li><a href="/index.html#pareidolia">Hidden details in famous artworks</a></li>
+				<li><a href="/index.html#work">The Art Review: how it works and what it costs</a></li>
+				<li><a href="/bookshop_links.html">Where to buy <i>Nicky's Secret</i></a></li>
+				<li><a href="/index.html#faq">Frequently asked questions</a></li>
+				<li><a href="/terms.html">Terms of Service</a>, <a href="/privacy.html">Privacy Policy</a> and the <a href="/schedule.html">Schedule of Prior Analysis</a></li>
+			</ul>
+			<p style="margin-top:1.8rem;"><a href="/index.html" class="btn btn-outline">← Back to The Hunch Trail</a></p>
 		</div>
 	</section>
 </main>
@@ -73,9 +95,9 @@
 			<a href="mailto:email@hunchtrail.com">email@hunchtrail.com</a>
 		</div>
 		<div class="legal-lines">
-			<a href="terms.html">Terms of Service</a><br>
-			<a href="privacy.html">Privacy Policy</a><br>
-			<a href="schedule.html">Schedule of Prior Analysis</a>
+			<a href="/terms.html">Terms of Service</a><br>
+			<a href="/privacy.html">Privacy Policy</a><br>
+			<a href="/schedule.html">Schedule of Prior Analysis</a>
 		</div>
 	</div>
 	<div class="wrap footer-notices">
@@ -93,8 +115,8 @@
 	section 2 for the disclosure this corresponds to. Deleted
 	automatically 180 days after being written.
 -->
-<script src="assets/js/visit-log.js"></script>
+<script src="/assets/js/visit-log.js"></script>
 
-<script src="assets/js/hunch-theme.js"></script>
+<script src="/assets/js/hunch-theme.js"></script>
 </body>
 </html>

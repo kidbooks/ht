@@ -102,7 +102,7 @@
 			<ul>
 				<li><b>(a)</b> every artwork listed on this page in the table below;</li>
 				<li><b>(b)</b> the picture book <i>Nicky's Secret: A Christmas Story</i> and every image, illustration and element within it, along with the many artworks that its illustrations allude to, nearly all of which are individually listed on this page anyway;</li>
-				<li><b>(c)</b> every artwork discussed, shown or referred to in any video, article, or post published on <a href="https://www.youtube.com/@thehunchtrail" rel="noopener">The Hunch Trail YouTube channel</a>, <a href="https://www.instagram.com/thehunchtrail/" rel="noopener">The Hunch Trail Instagram channel</a>, <a href="https://www.tiktok.com/@thehunchtrail" rel="noopener">The Hunch Trail Tiktok profile</a>, <a href="https://www.twitch.tv/thehunchtrail" rel="noopener">The Hunch Trail Twitch channel</a>, <a href="https://pinterest.com/thehunchtrail/" rel="noopener">The Hunch Trail Pinterest page</a>, <a href="https://www.reddit.com/user/thehunchtrail/" rel="noopener">The Hunch Trail Reddit page</a>, <a href="https://x.com/thehunchtrail" rel="noopener">The Hunch Trail X (Twitter) profile</a>, <a href="https://www.linkedin.com/in/banyjaya" rel="noopener">The Hunch Trail LinkedIn page</a>, or <a href="https://www.facebook.com/profile.php?id=61594384200930" rel="noopener">The Hunch Trail Facebook page</a>.</li>
+				<li><b>(c)</b> every artwork discussed, shown or referred to in any video, article, or post published on <a href="https://www.youtube.com/@thehunchtrail" rel="noopener">The Hunch Trail YouTube channel</a>, <a href="https://www.instagram.com/thehunchtrail/" rel="noopener">The Hunch Trail Instagram channel</a>, <a href="https://www.tiktok.com/@thehunchtrail" rel="noopener">The Hunch Trail Tiktok profile</a>, <a href="https://www.twitch.tv/thehunchtrail" rel="noopener">The Hunch Trail Twitch channel</a>, <a href="https://pinterest.com/thehunchtrail/" rel="noopener">The Hunch Trail Pinterest page</a>, <a href="https://www.reddit.com/user/thehunchtrail/" rel="noopener">The Hunch Trail Reddit page</a>, <a href="https://x.com/thehunchtrail" rel="noopener">The Hunch Trail X (Twitter) profile</a>, <a href="https://www.linkedin.com/company/thehunchtrail" rel="noopener">The Hunch Trail LinkedIn page</a>, or <a href="https://www.facebook.com/profile.php?id=61594384200930" rel="noopener">The Hunch Trail Facebook page</a>;</li>
 				<li><b>(d)</b> every artwork discussed, shown or referred to in any article, post, newsletter, video, image, or other material published on any other public channel operated by The Hunch Trail; and</li>
 				<li><b>(e)</b> any artwork added to this page from time to time.</li>
 			</ul>
@@ -306,7 +306,7 @@
 
 			<p>If you have already paid the Quotation Fee and the artwork turns out to be listed here or to fall within one of the categories above, I will tell you in writing. Unless you tell me within ten Business Days that you want to proceed anyway, I decline the engagement and refund the Quotation Fee in full under clause <a href="terms.html#b4">B4(b)</a> of the Terms.</p>
 
-			<p>You are welcome to contact me before paying anything. Use the enquiry form on the <a href="https://hunchtrail.com/#contact">home page</a> or email <a href="mailto:email@hunchtrail.com">email@hunchtrail.com</a>. You do not need to identify the artwork to ask a general question, and I would rather answer it than take a fee I am going to refund.</p>
+			<p>You are welcome to contact me before paying anything. Use the enquiry form on the <a href="https://hunchtrail.com/#contact">home page</a> or email <a href="mailto:email@hunchtrail.com">email@hunchtrail.com</a>. You do not need to identify the artwork to ask a general question, and I would rather answer it than take a fee I am going to refund. <b>Neither the enquiry form nor email@hunchtrail.com is confidential, so please do not identify the artwork there.</b> Confidentiality begins only once you have paid the Quotation Fee and I have emailed you from my own address &mdash; see clause <a href="terms.html#b13">B13</a> of the Terms.</p>
 
 		</div>
 	</section>
@@ -321,6 +321,7 @@
 			12A Ferraro Crescent<br>
 			West Hoxton NSW 2171 Australia<br>
 			ABN: 40 337 610 019<br>
+			General enquiries (not confidential):<br>
 			<a href="mailto:email@hunchtrail.com">email@hunchtrail.com</a>
 		</div>
 		<div class="legal-lines">
@@ -330,18 +331,19 @@
 		</div>
 	</div>
 	<div class="wrap footer-notices">
-		<p class="footer-notice" lang="en"><b>Germany and the Netherlands:</b> the Art Review service is supplied to businesses, professionals and public institutions for business purposes only. It is not offered or supplied to consumers within the meaning of &sect;13 BGB, or to consumers in the Netherlands.</p>
+		<p class="footer-notice" lang="en"><b>Germany and the Netherlands:</b> the Art Review service is supplied only to businesses and professionals for business purposes, and to public institutions acting in their official capacity. It is not offered or supplied to consumers within the meaning of &sect;13 BGB, or to consumers in the Netherlands.</p>
 		<p class="footer-notice" lang="fr"><b>Qu&eacute;bec (Canada): </b>nos services d&rsquo;analyse d&rsquo;&oelig;uvres d&rsquo;art ne sont pas offerts aux personnes r&eacute;sidant ou &eacute;tablies au Qu&eacute;bec (Canada), et nous n&rsquo;acceptons pas de client&egrave;le qu&eacute;b&eacute;coise. Ce site et l&rsquo;ensemble de nos services, communications et documents sont disponibles en anglais seulement.</p>
 	</div>
 </footer>
 
 <!--
-	Page-view and security logger — page path, timestamp, referral-source
-	tag, referring page, IP address and User-Agent. The IP address and
-	User-Agent are read by the Lambda function from the request itself,
-	not sent by this script. See assets/js/visit-log.js for exactly what
-	it sends, and privacy.html section 2 for the disclosure this
-	corresponds to. Deleted automatically 180 days after being written.
+	Page-view and security logger — page path, time, referral-source tag,
+	referring page, User-Agent, and a keyed hash of the IP address (never
+	the address itself). The time, User-Agent and hash are worked out by
+	the Lambda function from the request itself, not sent by this script.
+	See assets/js/visit-log.js for exactly what it sends, and privacy.html
+	section 2 for the disclosure this corresponds to. Deleted
+	automatically 180 days after being written.
 -->
 <script src="assets/js/visit-log.js"></script>
 
