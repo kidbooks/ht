@@ -108,9 +108,10 @@
 
 <!--
 	Page-view and security logger — page path, time, referral-source tag,
-	referring page, User-Agent, and a keyed hash of the IP address (never
-	the address itself). The time, User-Agent and hash are worked out by
-	the Lambda function from the request itself, not sent by this script.
+	referring page, User-Agent, the approximate country, state/province and
+	network of the IP address, and a keyed hash of the address (never the
+	address itself). The time, User-Agent, location and hash are worked out
+	by the Lambda function from the request itself, not sent by this script.
 	See assets/js/visit-log.js for exactly what it sends, and privacy.html
 	section 2 for the disclosure this corresponds to. Deleted
 	automatically 180 days after being written.
